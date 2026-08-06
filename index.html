@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dona Rita | Sistema de Amostras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --roxo-950: #1e0533;
+            --roxo-900: #2d0a4a;
+            --roxo-800: #3b0f5e;
+            --roxo-700: #4a1575;
+            --roxo-600: #5c1d8f;
+            --roxo-500: #6d28a8;
+            --roxo-400: #8b3fcf;
+            --roxo-300: #a868e6;
+            --roxo-200: #c99af7;
+            --roxo-100: #e2cdf8;
+            --roxo-50: #f6f0fc;
+            --roxo-25: #fbf8fd;
+            --verde: #10b981;
+            --verde-claro: #d1fae5;
+            --amarelo: #f59e0b;
+            --amarelo-claro: #fef3c7;
+            --laranja: #ef4444;
+            --laranja-claro: #fee2e2;
+            --azul: #3b82f6;
+            --azul-claro: #dbeafe;
+            --cinza-700: #374151;
+            --cinza-500: #6b7280;
+            --cinza-300: #d1d5db;
+            --cinza-100: #f3f4f6;
+            --branco: #ffffff;
+            --sombra-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --sombra-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --sombra-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.08);
+            --sombra-xl: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --sombra-roxa: 0 8px 30px rgba(109, 40, 168, 0.25);
+            --raio-sm: 8px;
+            --raio-md: 12px;
+            --raio-lg: 20px;
+            --raio-xl: 28px;
+            --transicao: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(160deg, #f8f5fb 0%, #f3ecfa 25%, #ede0f7 50%, #f6f0fc 75%, #fbf8fd 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #1f1a2e;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bg-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--roxo-200);
+            opacity: 0.25;
+            animation: floatUp 18s infinite ease-in;
+        }
+        .bg-particle:nth-child(1) { width: 180px; height: 180px; left: 5%; bottom: -200px; animation-delay: 0s; animation-duration: 20s; }
+        .bg-particle:nth-child(2) { width: 120px; height: 120px; left: 25%; bottom: -150px; animation-delay: 4s; animation-duration: 16s; opacity: 0.2; }
+        .bg-particle:nth-child(3) { width: 200px; height: 200px; left: 55%; bottom: -250px; animation-delay: 8s; animation-duration: 22s; opacity: 0.18; }
+        .bg-particle:nth-child(4) { width: 100px; height: 100px; left: 75%; bottom: -130px; animation-delay: 12s; animation-duration: 14s; opacity: 0.3; }
+        .bg-particle:nth-child(5) { width: 160px; height: 160px; left: 88%; bottom: -200px; animation-delay: 6s; animation-duration: 19s; opacity: 0.22; }
+        .bg-particle:nth-child(6) { width: 140px; height: 140px; left: 40%; bottom: -180px; animation-delay: 15s; animation-duration: 17s; opacity: 0.2; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.25; }
+            30% { opacity: 0.45; }
+            70% { opacity: 0.15; }
+            100% { transform: translateY(-115vh) scale(0.5) rotate(180deg); opacity: 0; }
+        }
+        .app-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            text-align: center;
+            padding: 24px 20px 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .header-logo {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .header-logo .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--roxo-500), var(--roxo-700));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 28px;
+            box-shadow: var(--sombra-roxa);
+            margin-bottom: 4px;
+            transition: var(--transicao);
+        }
+        .header-logo .logo-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(109, 40, 168, 0.4);
+        }
+        .header-logo .brand-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--roxo-800);
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .header-logo .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 5px;
+            color: var(--roxo-500);
+            text-transform: uppercase;
+        }
+        .header-logo .brand-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--roxo-400);
+            letter-spacing: 1px;
+            margin-top: 2px;
+            background: var(--roxo-50);
+            padding: 3px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--roxo-100);
+        }
+        .header .admin-link {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: var(--roxo-400);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transicao);
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            background: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .header .admin-link:hover {
+            color: var(--roxo-600);
+            background: var(--roxo-50);
+            border-color: var(--roxo-200);
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            padding: 10px 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .form-card {
+            background: var(--branco);
+            border-radius: var(--raio-xl);
+            padding: 36px 32px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: var(--sombra-xl);
+            border: 1px solid var(--roxo-100);
+            position: relative;
+            overflow: hidden;
+            animation: fadeSlideIn 0.6s ease-out;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--roxo-500), var(--roxo-400), var(--roxo-300), var(--roxo-400), var(--roxo-500));
+            border-radius: var(--raio-xl) var(--raio-xl) 0 0;
+        }
+        .form-card .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--roxo-50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 22px;
+            color: var(--roxo-500);
+        }
+        .form-card h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--roxo-800);
+            margin-bottom: 4px;
+        }
+        .form-card .subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--cinza-500);
+            margin-bottom: 24px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .form-grid .full-width {
+            grid-column: 1 / -1;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--roxo-700);
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .form-group label .req {
+            color: #ef4444;
+            font-weight: 700;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 11px 14px;
+            border: 2px solid var(--cinza-300);
+            border-radius: var(--raio-sm);
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transicao);
+            background: var(--roxo-25);
+            color: #1f1a2e;
+            resize: vertical;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--roxo-400);
+            box-shadow: 0 0 0 3px rgba(139, 63, 207, 0.1);
+            background: #fff;
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #b0a8b8;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            max-height: 150px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .radio-option {
+            flex: 1;
+            min-width: 140px;
+            position: relative;
+        }
+        .radio-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border: 2px solid var(--cinza-300);
+            border-radius: var(--raio-sm);
+            cursor: pointer;
+            transition: var(--transicao);
+            font-weight: 500;
+            font-size: 0.85rem;
+            background: var(--roxo-25);
+            color: #4a3d55;
+        }
+        .radio-option input:checked+label {
+            border-color: var(--roxo-500);
+            background: var(--roxo-50);
+            color: var(--roxo-700);
+            font-weight: 600;
+            box-shadow: 0 0 0 3px rgba(109, 40, 168, 0.08);
+        }
+        .radio-option label:hover {
+            border-color: var(--roxo-300);
+            background: #f9f5fd;
+        }
+        .radio-option label i {
+            font-size: 1rem;
+            color: var(--roxo-400);
+        }
+        /* Container de amostras */
+        .amostras-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .amostra-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: start;
+            background: var(--roxo-25);
+            border: 2px dashed var(--roxo-100);
+            border-radius: var(--raio-md);
+            padding: 16px 14px;
+            position: relative;
+            animation: fadeSlideIn 0.4s ease-out;
+            transition: var(--transicao);
+        }
+        .amostra-item:hover {
+            border-color: var(--roxo-300);
+            background: #fdfbff;
+        }
+        .amostra-item .form-group {
+            margin: 0;
+        }
+        .amostra-item .label-qtd {
+            transition: var(--transicao);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .btn-remover-amostra {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--cinza-300);
+            background: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transicao);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            flex-shrink: 0;
+            margin-top: 22px;
+            align-self: flex-start;
+        }
+        .btn-remover-amostra:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: #fef2f2;
+            transform: scale(1.08);
+        }
+        .btn-adicionar-amostra {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 20px;
+            background: #fff;
+            border: 2px dashed var(--roxo-300);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--roxo-600);
+            transition: var(--transicao);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .btn-adicionar-amostra:hover {
+            background: var(--roxo-50);
+            border-color: var(--roxo-500);
+            color: var(--roxo-700);
+            box-shadow: 0 4px 15px rgba(109, 40, 168, 0.12);
+            transform: translateY(-1px);
+        }
+        .btn-submit {
+            grid-column: 1 / -1;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--roxo-600), var(--roxo-500));
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transicao);
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: var(--sombra-roxa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(135deg, var(--roxo-700), var(--roxo-600));
+            box-shadow: 0 12px 35px rgba(109, 40, 168, 0.4);
+            transform: translateY(-2px);
+        }
+        .btn-submit:active {
+            transform: scale(0.97);
+            box-shadow: var(--sombra-md);
+        }
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%);
+            background-size: 200% 200%;
+            animation: shimmer 2.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .btn-submit span {
+            position: relative;
+            z-index: 1;
+        }
+        /* Admin */
+        .admin-section {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            animation: fadeSlideIn 0.5s ease-out;
+        }
+        .admin-section.active {
+            display: block;
+        }
+        .public-section {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .public-section.hidden {
+            display: none;
+        }
+        .login-card {
+            background: #fff;
+            border-radius: var(--raio-xl);
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: var(--sombra-xl);
+            text-align: center;
+            border: 1px solid var(--roxo-100);
+            margin: 40px auto;
+        }
+        .login-card .lock-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--roxo-50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 30px;
+            color: var(--roxo-500);
+        }
+        .login-card h3 {
+            color: var(--roxo-800);
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .login-card p {
+            color: var(--cinza-500);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .login-card input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--cinza-300);
+            border-radius: 30px;
+            font-size: 0.95rem;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 4px;
+            transition: var(--transicao);
+            outline: none;
+            background: var(--roxo-25);
+        }
+        .login-card input:focus {
+            border-color: var(--roxo-400);
+            box-shadow: 0 0 0 3px rgba(139, 63, 207, 0.1);
+        }
+        .login-card .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: var(--roxo-500);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 14px;
+            transition: var(--transicao);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+            box-shadow: var(--sombra-roxa);
+        }
+        .login-card .btn-login:hover {
+            background: var(--roxo-600);
+            box-shadow: 0 10px 28px rgba(109, 40, 168, 0.35);
+        }
+        .login-error {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .dashboard-header h2 {
+            font-size: 1.5rem;
+            color: var(--roxo-800);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dashboard-header .btn-sair {
+            padding: 9px 20px;
+            background: #fff;
+            border: 2px solid var(--cinza-300);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--cinza-700);
+            transition: var(--transicao);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dashboard-header .btn-sair:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: #fef2f2;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: var(--raio-md);
+            padding: 20px 18px;
+            box-shadow: var(--sombra-md);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid transparent;
+            transition: var(--transicao);
+            cursor: pointer;
+        }
+        .stat-card:hover {
+            border-color: var(--roxo-200);
+            box-shadow: var(--sombra-lg);
+            transform: translateY(-3px);
+        }
+        .stat-card .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .stat-card .stat-info .stat-number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #1f1a2e;
+        }
+        .stat-card .stat-info .stat-label {
+            font-size: 0.75rem;
+            color: var(--cinza-500);
+            font-weight: 500;
+        }
+        .stat-card.total .stat-icon { background: #ede0f7; color: var(--roxo-600); }
+        .stat-card.pendentes .stat-icon { background: #fef3c7; color: #b45309; }
+        .stat-card.urgentes .stat-icon { background: #fee2e2; color: #dc2626; }
+        .stat-card.enviados .stat-icon { background: #dbeafe; color: #2563eb; }
+        .stat-card.concluidos .stat-icon { background: #d1fae5; color: #059669; }
+        .stat-card.active-filter {
+            border-color: var(--roxo-500) !important;
+            box-shadow: 0 0 0 4px rgba(109, 40, 168, 0.12) !important;
+            background: var(--roxo-25) !important;
+        }
+        .filters-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 2px solid var(--cinza-300);
+            background: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: var(--transicao);
+            font-family: 'Poppins', sans-serif;
+            color: var(--cinza-700);
+            white-space: nowrap;
+        }
+        .filter-btn:hover { border-color: var(--roxo-300); color: var(--roxo-600); }
+        .filter-btn.active { background: var(--roxo-500); color: #fff; border-color: var(--roxo-500); }
+        .search-input {
+            padding: 9px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--cinza-300);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            flex: 1;
+            min-width: 180px;
+            outline: none;
+            transition: var(--transicao);
+            background: #fff;
+        }
+        .search-input:focus { border-color: var(--roxo-400); box-shadow: 0 0 0 3px rgba(139, 63, 207, 0.08); }
+        .btn-demo {
+            padding: 9px 18px;
+            border-radius: 20px;
+            border: 2px dashed var(--roxo-300);
+            background: var(--roxo-25);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--roxo-600);
+            transition: var(--transicao);
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+        .btn-demo:hover { background: var(--roxo-50); border-color: var(--roxo-500); }
+        .table-container {
+            background: #fff;
+            border-radius: var(--raio-lg);
+            overflow: hidden;
+            box-shadow: var(--sombra-md);
+            border: 1px solid var(--roxo-100);
+        }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        table thead { background: var(--roxo-50); }
+        table thead th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--roxo-700);
+            font-size: 0.78rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        table tbody td {
+            padding: 12px;
+            border-bottom: 1px solid var(--roxo-50);
+            vertical-align: middle;
+            color: #3a3144;
+        }
+        table tbody tr { transition: var(--transicao); }
+        table tbody tr:hover { background: #fdfbff; }
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.73rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .badge-pendente { background: #fef3c7; color: #92400e; }
+        .badge-urgente { background: #fee2e2; color: #b91c1c; animation: pulseBadge 2s infinite; }
+        @keyframes pulseBadge {
+            0%,100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+        }
+        .badge-enviado { background: #dbeafe; color: #1d4ed8; }
+        .badge-concluido { background: #d1fae5; color: #065f46; }
+        .action-btn {
+            width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+            font-size: 0.8rem; transition: var(--transicao); display: inline-flex;
+            align-items: center; justify-content: center; margin: 0 2px;
+            background: #f3f4f6; color: #4b5563;
+        }
+        .action-btn:hover { background: var(--roxo-100); color: var(--roxo-600); }
+        .action-btn.delete:hover { background: #fee2e2; color: #dc2626; }
+        .action-btn.view:hover { background: #dbeafe; color: #2563eb; }
+        .empty-state { text-align: center; padding: 50px 20px; color: var(--cinza-500); }
+        .empty-state i { font-size: 60px; color: var(--roxo-200); margin-bottom: 12px; }
+        /* Modais */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(30,5,51,0.7); z-index: 1000;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+            animation: fadeIn 0.3s ease; backdrop-filter: blur(4px);
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-dialog {
+            background: #fff; border-radius: var(--raio-lg); width: 100%; max-width: 650px;
+            max-height: 85vh; overflow-y: auto; box-shadow: var(--sombra-xl);
+            animation: scaleIn 0.3s ease; position: relative;
+        }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-header {
+            padding: 18px 24px; border-bottom: 1px solid #eee; display: flex;
+            justify-content: space-between; align-items: center; position: sticky;
+            top: 0; background: #fff; z-index: 2; border-radius: var(--raio-lg) var(--raio-lg) 0 0;
+        }
+        .modal-header h3 { font-size: 1.1rem; color: var(--roxo-800); display: flex; align-items: center; gap: 8px; }
+        .modal-close {
+            width: 36px; height: 36px; border-radius: 50%; border: none; background: #f3f4f6;
+            cursor: pointer; font-size: 1rem; transition: var(--transicao); display: flex;
+            align-items: center; justify-content: center; color: #6b7280;
+        }
+        .modal-close:hover { background: #fee2e2; color: #dc2626; }
+        .modal-body { padding: 20px 24px; }
+        .email-preview {
+            background: #f9fafb; border: 1px solid #e5e7eb; border-radius: var(--raio-sm);
+            padding: 16px; font-family: 'Courier New', monospace; font-size: 0.85rem;
+            line-height: 1.7; white-space: pre-wrap; color: #1f2937; max-height: 300px;
+            overflow-y: auto; margin-bottom: 12px;
+        }
+        .btn-copy {
+            padding: 10px 20px; background: var(--roxo-500); color: #fff; border: none;
+            border-radius: 25px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif;
+            transition: var(--transicao); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+        }
+        .btn-copy:hover { background: var(--roxo-600); }
+        .btn-copy.copied { background: #10b981 !important; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .detail-item { display: flex; flex-direction: column; gap: 2px; }
+        .detail-item .dl { font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        .detail-item .dv { font-size: 0.9rem; color: #1f2937; font-weight: 500; }
+        .detail-full { grid-column: 1 / -1; }
+        .status-select {
+            padding: 8px 12px; border-radius: 20px; border: 2px solid var(--cinza-300);
+            font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: #fff;
+        }
+        .toast-container {
+            position: fixed; top: 20px; right: 20px; z-index: 2000;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            padding: 14px 20px; border-radius: 30px; color: #fff; font-weight: 600;
+            font-size: 0.85rem; box-shadow: var(--sombra-lg);
+            animation: slideToast 0.4s ease, fadeOutToast 0.4s ease 2.8s forwards;
+            display: flex; align-items: center; gap: 8px; max-width: 400px;
+        }
+        .toast-success { background: #10b981; }
+        .toast-error { background: #ef4444; }
+        .toast-info { background: var(--roxo-500); }
+        @keyframes slideToast {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOutToast {
+            from { opacity: 1; }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .amostra-item { grid-template-columns: 1fr 1fr auto; gap: 8px; padding: 12px 10px; }
+            .header-logo .brand-name { font-size: 1.4rem; }
+            .header .admin-link { position: static; margin-top: 8px; justify-content: center; }
+            .header { display: flex; flex-direction: column; align-items: center; }
+            .form-card { padding: 24px 16px; }
+            .stats-grid { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 480px) {
+            .amostra-item { grid-template-columns: 1fr; gap: 8px; padding: 10px 8px; }
+            .amostra-item .btn-remover-amostra { position: absolute; top: 6px; right: 6px; margin-top: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-particles">
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+    </div>
+    <div class="app-container">
+        <header class="header" id="mainHeader">
+            <div class="header-logo">
+                <div class="logo-icon">📦</div>
+                <span class="brand-name">Dona Rita</span>
+                <span class="brand-sub">Embalagens</span>
+                <span class="brand-tag">✦ AMOSTRAS ✦</span>
+            </div>
+            <button class="admin-link" id="btnAdminLink"><i class="fas fa-lock"></i> Área do Administrador</button>
+            <button class="admin-link" id="btnVoltarSite" style="display:none;"><i class="fas fa-arrow-left"></i> Voltar ao Site</button>
+        </header>
+        <div class="main-content">
+            <div class="public-section" id="publicSection">
+                <div class="form-card">
+                    <div class="card-icon">🎁</div>
+                    <h2>Solicitação de Amostra</h2>
+                    <p class="subtitle">Preencha os dados abaixo para solicitar sua amostra</p>
+                    <form id="formAmostra" novalidate>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label style="margin-bottom:4px;"><span class="req">*</span> Amostras de material desejadas</label>
+                                <div class="amostras-container" id="amostrasContainer">
+                                    <div class="amostra-item" data-index="0">
+                                        <div class="form-group">
+                                            <label><span class="req">*</span> Qual amostra de material deseja?</label>
+                                            <input type="text" class="campo-material-amostra" placeholder="Ex: Sacola plástica personalizada..." required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label-qtd"><span class="req">*</span> Quantidade</label>
+                                            <input type="text" class="campo-quantidade-amostra" placeholder="Ex: 5 unidades" required>
+                                        </div>
+                                        <button type="button" class="btn-remover-amostra" style="display:none;"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-adicionar-amostra" id="btnAdicionarAmostra" style="margin-top:8px;"><i class="fas fa-plus"></i> Adicionar outra amostra</button>
+                            </div>
+                            <div class="form-group"><label><span class="req">*</span> Até qual dia pode ser o envio?</label><input type="date" id="campoPrazo" required></div>
+                            <div class="form-group"><label><span class="req">*</span> Nome de quem vai receber</label><input type="text" id="campoNome" placeholder="Nome completo" required></div>
+                            <div class="form-group"><label><span class="req">*</span> Empresa que vai receber</label><input type="text" id="campoEmpresa" placeholder="Nome da empresa" required></div>
+                            <div class="form-group full-width"><label><span class="req">*</span> Endereço completo</label><input type="text" id="campoEndereco" placeholder="Rua, número, bairro, cidade, estado, CEP" required></div>
+                            <div class="form-group full-width">
+                                <label><span class="req">*</span> Tipo de envio</label>
+                                <div class="radio-group">
+                                    <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioPedido" value="pedido_recente" required><label for="envioPedido"><i class="fas fa-box"></i> Possui pedido recente</label></div>
+                                    <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioCorreio" value="correio"><label for="envioCorreio"><i class="fas fa-truck"></i> Via Correio</label></div>
+                                </div>
+                            </div>
+                            <div class="form-group"><label>Email para contato</label><input type="email" id="campoEmail" placeholder="email@exemplo.com"></div>
+                            <div class="form-group"><label>Telefone</label><input type="tel" id="campoTelefone" placeholder="(00) 00000-0000"></div>
+                            <div class="form-group full-width"><label>Observações adicionais</label><textarea id="campoObs" placeholder="Alguma informação extra relevante..."></textarea></div>
+                            <button type="submit" class="btn-submit"><span><i class="fas fa-paper-plane"></i> ENVIAR SOLICITAÇÃO</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="admin-section" id="adminLoginSection">
+                <div class="login-card">
+                    <div class="lock-icon">🔐</div>
+                    <h3>Área Restrita</h3>
+                    <p>Digite a senha para acessar o painel</p>
+                    <input type="password" id="campoSenha" placeholder="••••••••" autocomplete="off">
+                    <button class="btn-login" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                    <p class="login-error" id="loginError">Senha incorreta. Tente novamente.</p>
+                </div>
+            </div>
+            <div class="admin-section" id="adminDashboardSection">
+                <div class="dashboard-header">
+                    <h2><i class="fas fa-chart-pie" style="color:var(--roxo-500);"></i> Painel de Amostras</h2>
+                    <button class="btn-sair" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card total" data-filter="todos"><div class="stat-icon"><i class="fas fa-inbox"></i></div><div class="stat-info"><div class="stat-number" id="statTotal">0</div><div class="stat-label">Total</div></div></div>
+                    <div class="stat-card pendentes" data-filter="pendente"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-info"><div class="stat-number" id="statPendentes">0</div><div class="stat-label">Pendentes</div></div></div>
+                    <div class="stat-card urgentes" data-filter="urgente"><div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="stat-info"><div class="stat-number" id="statUrgentes">0</div><div class="stat-label">Urgentes</div></div></div>
+                    <div class="stat-card enviados" data-filter="enviado"><div class="stat-icon"><i class="fas fa-truck-fast"></i></div><div class="stat-info"><div class="stat-number" id="statEnviados">0</div><div class="stat-label">Enviados</div></div></div>
+                    <div class="stat-card concluidos" data-filter="concluido"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-info"><div class="stat-number" id="statConcluidos">0</div><div class="stat-label">Concluídos</div></div></div>
+                </div>
+                <div class="filters-bar">
+                    <button class="filter-btn active" data-filter="todos">Todos</button>
+                    <button class="filter-btn" data-filter="pendente">Pendentes</button>
+                    <button class="filter-btn" data-filter="urgente">Urgentes</button>
+                    <button class="filter-btn" data-filter="enviado">Enviados</button>
+                    <button class="filter-btn" data-filter="concluido">Concluídos</button>
+                    <input type="text" class="search-input" id="searchInput" placeholder="🔍 Buscar por empresa ou material...">
+                    <button class="btn-demo" id="btnDemo"><i class="fas fa-magic"></i> Dados demo</button>
+                </div>
+                <div class="table-container"><div class="table-wrapper"><table><thead><tr><th>Data</th><th>Empresa</th><th>Material</th><th>Qtd</th><th>Prazo</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tableBody"><tr class="empty-state"><td colspan="7"><i class="fas fa-box-open"></i><p>Nenhuma solicitação encontrada</p></td></tr></tbody></table></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalEmail" style="display:none;">
+        <div class="modal-dialog"><div class="modal-header"><h3><i class="fas fa-envelope" style="color:var(--roxo-500);"></i> Email Gerado</h3><button class="modal-close" onclick="fecharModal('modalEmail')">✕</button></div><div class="modal-body"><p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">📋 O email abaixo foi formatado com os dados da solicitação:</p><div class="email-preview" id="emailContent"></div><button class="btn-copy" id="btnCopy" onclick="copiarEmail()"><i class="fas fa-copy"></i> Copiar texto do email</button><span style="margin-left:10px;font-size:0.8rem;color:#10b981;display:none;" id="copyFeedback">✓ Copiado!</span></div></div>
+    </div>
+    <div class="modal-overlay" id="modalDetalhes" style="display:none;">
+        <div class="modal-dialog"><div class="modal-header"><h3><i class="fas fa-info-circle" style="color:var(--roxo-500);"></i> Detalhes da Solicitação</h3><button class="modal-close" onclick="fecharModal('modalDetalhes')">✕</button></div><div class="modal-body" id="detalhesContent"></div></div>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <script>
+        (function() {
+            const STORAGE_KEY = 'donaRita_amostras';
+            const ADMIN_SESSION_KEY = 'donaRita_adminAuth';
+            const SENHA_ADMIN = 'admin123';
+            const SEPARADOR = ' || ';
+            const publicSection = document.getElementById('publicSection');
+            const adminLoginSection = document.getElementById('adminLoginSection');
+            const adminDashboardSection = document.getElementById('adminDashboardSection');
+            const btnAdminLink = document.getElementById('btnAdminLink');
+            const btnVoltarSite = document.getElementById('btnVoltarSite');
+            const formAmostra = document.getElementById('formAmostra');
+            const amostrasContainer = document.getElementById('amostrasContainer');
+            const btnAdicionarAmostra = document.getElementById('btnAdicionarAmostra');
+            const tableBody = document.getElementById('tableBody');
+            const searchInput = document.getElementById('searchInput');
+            const btnDemo = document.getElementById('btnDemo');
+            const btnLogin = document.getElementById('btnLogin');
+            const btnLogout = document.getElementById('btnLogout');
+            const campoSenha = document.getElementById('campoSenha');
+            const loginError = document.getElementById('loginError');
+            const modalEmail = document.getElementById('modalEmail');
+            const modalDetalhes = document.getElementById('modalDetalhes');
+            const emailContent = document.getElementById('emailContent');
+            const btnCopy = document.getElementById('btnCopy');
+            const copyFeedback = document.getElementById('copyFeedback');
+            const toastContainer = document.getElementById('toastContainer');
+            const statsGrid = document.getElementById('statsGrid');
+            let filtroAtual = 'todos';
+            let amostras = [];
+            let amostraEmailTemp = null;
+            let contadorItens = 1;
+            function init() {
+                carregarDados();
+                verificarSessaoAdmin();
+                setupEventListeners();
+                setDataMinima();
+                inicializarPrimeiroItem();
+            }
+            function setDataMinima() {
+                document.getElementById('campoPrazo').setAttribute('min', new Date().toISOString().split('T')[0]);
+            }
+            function carregarDados() {
+                try { amostras = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { amostras = []; }
+            }
+            function salvarDados() { localStorage.setItem(STORAGE_KEY, JSON.stringify(amostras)); }
+            function verificarSessaoAdmin() {
+                sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true' ? mostrarDashboard() : mostrarPublico();
+            }
+            function inicializarPrimeiroItem() {
+                contadorItens = 1;
+                while (amostrasContainer.children.length > 1) {
+                    amostrasContainer.lastChild.remove();
+                }
+                const primeiroItem = amostrasContainer.querySelector('.amostra-item');
+                if (primeiroItem) {
+                    primeiroItem.setAttribute('data-index', '0');
+                    const btnRemover = primeiroItem.querySelector('.btn-remover-amostra');
+                    if (btnRemover) btnRemover.style.display = 'none';
+                    primeiroItem.querySelector('.campo-material-amostra').value = '';
+                    primeiroItem.querySelector('.campo-quantidade-amostra').value = '';
+                    primeiroItem.querySelector('.label-qtd').innerHTML = '<span class="req">*</span> Quantidade';
+                } else {
+                    const novoItem = criarItemAmostra(0);
+                    amostrasContainer.appendChild(novoItem);
+                }
+                contadorItens = amostrasContainer.children.length;
+                atualizarBotoesRemover();
+            }
+            function criarItemAmostra(index) {
+                const item = document.createElement('div');
+                item.className = 'amostra-item';
+                item.setAttribute('data-index', index);
+                item.innerHTML = `
+                    <div class="form-group">
+                        <label><span class="req">*</span> Qual amostra de material deseja?</label>
+                        <input type="text" class="campo-material-amostra" placeholder="Ex: Sacola plástica personalizada..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-qtd"><span class="req">*</span> Quantidade</label>
+                        <input type="text" class="campo-quantidade-amostra" placeholder="Ex: 5 unidades" required>
+                    </div>
+                    <button type="button" class="btn-remover-amostra" title="Remover esta amostra"><i class="fas fa-times"></i></button>
+                `;
+                return item;
+            }
+            function adicionarItemAmostra() {
+                contadorItens = amostrasContainer.children.length + 1;
+                const novoItem = criarItemAmostra(contadorItens - 1);
+                amostrasContainer.appendChild(novoItem);
+                atualizarBotoesRemover();
+                setTimeout(() => {
+                    novoItem.querySelector('.campo-material-amostra').focus();
+                    novoItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 150);
+                showToast('Nova amostra adicionada!', 'info');
+            }
+            function removerItemAmostra(btn) {
+                if (amostrasContainer.children.length <= 1) {
+                    showToast('É necessário pelo menos uma amostra!', 'error');
+                    return;
+                }
+                const item = btn.closest('.amostra-item');
+                if (item) {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    item.style.transition = '0.25s ease';
+                    setTimeout(() => {
+                        item.remove();
+                        reindexarItens();
+                        atualizarBotoesRemover();
+                    }, 250);
+                }
+            }
+            function atualizarBotoesRemover() {
+                const itens = amostrasContainer.querySelectorAll('.amostra-item');
+                itens.forEach(item => {
+                    const btnRemover = item.querySelector('.btn-remover-amostra');
+                    if (btnRemover) btnRemover.style.display = itens.length > 1 ? 'flex' : 'none';
+                });
+            }
+            function reindexarItens() {
+                const itens = amostrasContainer.querySelectorAll('.amostra-item');
+                itens.forEach((item, i) => item.setAttribute('data-index', i));
+                contadorItens = itens.length;
+            }
+            function atualizarLabelQuantidade(inputMaterial) {
+                const item = inputMaterial.closest('.amostra-item');
+                const labelQtd = item.querySelector('.label-qtd');
+                const materialNome = inputMaterial.value.trim();
+                labelQtd.innerHTML = materialNome.length > 0 ? '<span class="req">*</span> Quantidade (' + escapeHtml(materialNome) + ')' : '<span class="req">*</span> Quantidade';
+            }
+            function coletarDadosAmostras() {
+                const itens = amostrasContainer.querySelectorAll('.amostra-item');
+                const materiais = [], quantidades = [];
+                let todosValidos = true;
+                itens.forEach(item => {
+                    const mat = item.querySelector('.campo-material-amostra').value.trim();
+                    const qtd = item.querySelector('.campo-quantidade-amostra').value.trim();
+                    materiais.push(mat || '');
+                    quantidades.push(qtd || '');
+                    if (!mat || !qtd) {
+                        todosValidos = false;
+                        if (!mat) { item.querySelector('.campo-material-amostra').style.borderColor = '#ef4444'; setTimeout(() => item.querySelector('.campo-material-amostra').style.borderColor = '', 2500); }
+                        if (!qtd) { item.querySelector('.campo-quantidade-amostra').style.borderColor = '#ef4444'; setTimeout(() => item.querySelector('.campo-quantidade-amostra').style.borderColor = '', 2500); }
+                    }
+                });
+                return {
+                    material: materiais.join(SEPARADOR),
+                    quantidade: quantidades.join(SEPARADOR),
+                    valido: todosValidos && materiais.every(m => m) && quantidades.every(q => q)
+                };
+            }
+            function formatarParaExibicao(str) {
+                if (!str) return '—';
+                if (!str.includes(SEPARADOR)) return escapeHtml(str);
+                return str.split(SEPARADOR).map(p => escapeHtml(p.trim())).filter(p => p).join('<br>');
+            }
+            function formatarParaEmail(str) {
+                if (!str) return 'Nenhum';
+                if (!str.includes(SEPARADOR)) return str;
+                return str.split(SEPARADOR).map(p => '  • ' + p.trim()).join('\n');
+            }
+            function mostrarPublico() {
+                publicSection.classList.remove('hidden');
+                adminLoginSection.classList.remove('active');
+                adminDashboardSection.classList.remove('active');
+                btnAdminLink.style.display = '';
+                btnVoltarSite.style.display = 'none';
+                document.getElementById('mainHeader').style.flexDirection = '';
+                limparFormulario();
+            }
+            function mostrarLogin() {
+                publicSection.classList.add('hidden');
+                adminLoginSection.classList.add('active');
+                adminDashboardSection.classList.remove('active');
+                btnAdminLink.style.display = 'none';
+                btnVoltarSite.style.display = '';
+                campoSenha.value = '';
+                loginError.classList.remove('show');
+                campoSenha.focus();
+            }
+            function mostrarDashboard() {
+                publicSection.classList.add('hidden');
+                adminLoginSection.classList.remove('active');
+                adminDashboardSection.classList.add('active');
+                btnAdminLink.style.display = 'none';
+                btnVoltarSite.style.display = '';
+                renderizarDashboard();
+            }
+            function setupEventListeners() {
+                btnAdminLink.addEventListener('click', () => {
+                    sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true' ? mostrarDashboard() : mostrarLogin();
+                });
+                btnVoltarSite.addEventListener('click', () => {
+                    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+                    mostrarPublico();
+                    filtroAtual = 'todos';
+                    searchInput.value = '';
+                    atualizarFiltrosAtivos();
+                });
+                btnLogin.addEventListener('click', fazerLogin);
+                campoSenha.addEventListener('keydown', e => { if (e.key === 'Enter') fazerLogin(); });
+                btnLogout.addEventListener('click', () => {
+                    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+                    mostrarPublico();
+                    filtroAtual = 'todos';
+                    searchInput.value = '';
+                    atualizarFiltrosAtivos();
+                    showToast('Logout realizado com sucesso', 'info');
+                });
+                formAmostra.addEventListener('submit', handleSubmit);
+                btnAdicionarAmostra.addEventListener('click', adicionarItemAmostra);
+                amostrasContainer.addEventListener('input', e => {
+                    if (e.target.classList.contains('campo-material-amostra')) atualizarLabelQuantidade(e.target);
+                });
+                amostrasContainer.addEventListener('click', e => {
+                    const btnRemover = e.target.closest('.btn-remover-amostra');
+                    if (btnRemover) removerItemAmostra(btnRemover);
+                });
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filtroAtual = btn.dataset.filter;
+                        atualizarFiltrosAtivos();
+                        renderizarTabela();
+                    });
+                });
+                statsGrid.addEventListener('click', e => {
+                    const card = e.target.closest('.stat-card');
+                    if (card && card.dataset.filter) {
+                        filtroAtual = card.dataset.filter;
+                        atualizarFiltrosAtivos();
+                        renderizarTabela();
+                    }
+                });
+                searchInput.addEventListener('input', renderizarTabela);
+                btnDemo.addEventListener('click', carregarDadosDemo);
+                [modalEmail, modalDetalhes].forEach(modal => {
+                    modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+                });
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'Escape') {
+                        if (modalEmail.style.display === 'flex') modalEmail.style.display = 'none';
+                        if (modalDetalhes.style.display === 'flex') modalDetalhes.style.display = 'none';
+                    }
+                });
+            }
+            function atualizarFiltrosAtivos() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`.filter-btn[data-filter="${filtroAtual}"]`)?.classList.add('active');
+                document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active-filter'));
+                const cardAtivo = document.querySelector(`.stat-card[data-filter="${filtroAtual}"]`);
+                if (cardAtivo) cardAtivo.classList.add('active-filter');
+            }
+            function fazerLogin() {
+                if (campoSenha.value.trim() === SENHA_ADMIN) {
+                    sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+                    loginError.classList.remove('show');
+                    mostrarDashboard();
+                    showToast('Bem-vindo(a) ao painel!', 'success');
+                } else {
+                    loginError.classList.add('show');
+                    campoSenha.value = '';
+                    campoSenha.focus();
+                    showToast('Senha incorreta!', 'error');
+                }
+            }
+            function handleSubmit(e) {
+                e.preventDefault();
+                const dadosAmostras = coletarDadosAmostras();
+                const nome = document.getElementById('campoNome').value.trim();
+                const endereco = document.getElementById('campoEndereco').value.trim();
+                const empresa = document.getElementById('campoEmpresa').value.trim();
+                const prazo = document.getElementById('campoPrazo').value;
+                const tipoEnvioRadio = document.querySelector('input[name="tipoEnvio"]:checked');
+                const email = document.getElementById('campoEmail').value.trim();
+                const telefone = document.getElementById('campoTelefone').value.trim();
+                const obs = document.getElementById('campoObs').value.trim();
+                let temErro = false;
+                if (!dadosAmostras.valido) { showToast('Preencha todos os materiais e quantidades!', 'error'); temErro = true; }
+                if (!nome || !endereco || !empresa || !prazo || !tipoEnvioRadio) {
+                    showToast('Preencha todos os campos obrigatórios!', 'error');
+                    [{ el: document.getElementById('campoNome'), val: nome }, { el: document.getElementById('campoEndereco'), val: endereco }, { el: document.getElementById('campoEmpresa'), val: empresa }, { el: document.getElementById('campoPrazo'), val: prazo }].forEach(item => {
+                        if (!item.val) { item.el.style.borderColor = '#ef4444'; setTimeout(() => item.el.style.borderColor = '', 2000); }
+                    });
+                    if (!tipoEnvioRadio) {
+                        document.querySelectorAll('input[name="tipoEnvio"]').forEach(r => r.parentElement.querySelector('label').style.borderColor = '#ef4444');
+                        setTimeout(() => document.querySelectorAll('input[name="tipoEnvio"]').forEach(r => r.parentElement.querySelector('label').style.borderColor = ''), 2000);
+                    }
+                    temErro = true;
+                }
+                if (temErro) return;
+                const hoje = new Date(); hoje.setHours(0,0,0,0);
+                const dataPrazo = new Date(prazo + 'T00:00:00');
+                const diffDias = Math.ceil((dataPrazo - hoje) / (1000 * 60 * 60 * 24));
+                const statusInicial = diffDias <= 3 ? 'urgente' : 'pendente';
+                const novaAmostra = {
+                    id: 'AM-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2,4).toUpperCase(),
+                    dataCriacao: new Date().toISOString(),
+                    material: dadosAmostras.material,
+                    quantidade: dadosAmostras.quantidade,
+                    nomePessoa: nome,
+                    endereco,
+                    empresa,
+                    prazo,
+                    tipoEnvio: tipoEnvioRadio.value,
+                    emailContato: email,
+                    telefone,
+                    observacoes: obs,
+                    status: statusInicial,
+                };
+                amostras.unshift(novaAmostra);
+                salvarDados();
+                amostraEmailTemp = novaAmostra;
+                mostrarModalEmail(novaAmostra);
+                limparFormulario();
+                showToast('Solicitação registrada com sucesso!', 'success');
+                if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') renderizarDashboard();
+            }
+            function limparFormulario() {
+                formAmostra.reset();
+                document.querySelectorAll('#formAmostra input, #formAmostra textarea').forEach(el => el.style.borderColor = '');
+                document.querySelectorAll('input[name="tipoEnvio"]').forEach(r => r.parentElement.querySelector('label').style.borderColor = '');
+                inicializarPrimeiroItem();
+            }
+            function alterarStatus(id, novoStatus) {
+                const amostra = amostras.find(a => a.id === id);
+                if (amostra) { amostra.status = novoStatus; salvarDados(); renderizarDashboard(); showToast(`Status alterado para "${getStatusLabel(novoStatus)}"`, 'info'); }
+            }
+            function excluirAmostra(id) {
+                if (confirm('Tem certeza que deseja excluir esta solicitação?')) {
+                    amostras = amostras.filter(a => a.id !== id);
+                    salvarDados();
+                    renderizarDashboard();
+                    showToast('Solicitação excluída com sucesso!', 'success');
+                }
+            }
+            function renderizarDashboard() { atualizarStats(); renderizarTabela(); atualizarFiltrosAtivos(); }
+            function atualizarStats() {
+                document.getElementById('statTotal').textContent = amostras.length;
+                document.getElementById('statPendentes').textContent = amostras.filter(a => a.status === 'pendente').length;
+                document.getElementById('statUrgentes').textContent = amostras.filter(a => a.status === 'urgente').length;
+                document.getElementById('statEnviados').textContent = amostras.filter(a => a.status === 'enviado').length;
+                document.getElementById('statConcluidos').textContent = amostras.filter(a => a.status === 'concluido').length;
+            }
+            function getAmostrasFiltradas() {
+                let filtradas = [...amostras];
+                if (filtroAtual !== 'todos') filtradas = filtradas.filter(a => a.status === filtroAtual);
+                const busca = searchInput.value.trim().toLowerCase();
+                if (busca) filtradas = filtradas.filter(a => a.empresa.toLowerCase().includes(busca) || a.material.toLowerCase().includes(busca) || a.nomePessoa.toLowerCase().includes(busca) || a.id.toLowerCase().includes(busca));
+                return filtradas;
+            }
+            function renderizarTabela() {
+                const filtradas = getAmostrasFiltradas();
+                if (filtradas.length === 0) {
+                    tableBody.innerHTML = '<tr class="empty-state"><td colspan="7"><i class="fas fa-box-open"></i><p>Nenhuma solicitação encontrada</p></td></tr>';
+                    return;
+                }
+                tableBody.innerHTML = filtradas.map(a => {
+                    const dataCriacao = new Date(a.dataCriacao).toLocaleDateString('pt-BR');
+                    const prazoFormatado = new Date(a.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
+                    const statusLabel = getStatusLabel(a.status);
+                    const badgeClass = 'badge-' + a.status;
+                    return `<tr>
+                        <td title="${new Date(a.dataCriacao).toLocaleString('pt-BR')}">${dataCriacao}</td>
+                        <td><strong>${escapeHtml(a.empresa)}</strong></td>
+                        <td>${formatarParaExibicao(a.material)}</td>
+                        <td>${formatarParaExibicao(a.quantidade)}</td>
+                        <td>${prazoFormatado}</td>
+                        <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
+                        <td>
+                            <button class="action-btn view" title="Ver detalhes" onclick='verDetalhes(${JSON.stringify(a.id)})'><i class="fas fa-eye"></i></button>
+                            <button class="action-btn" title="Alterar status" onclick='menuStatus(${JSON.stringify(a.id)}, "${a.status}")'><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete" title="Excluir" onclick='excluirAmostra(${JSON.stringify(a.id)})'><i class="fas fa-trash-alt"></i></button>
+                        </td></tr>`;
+                }).join('');
+            }
+            function getStatusLabel(s) { return { pendente:'Pendente', urgente:'⚠ Urgente', enviado:'Enviado', concluido:'Concluído' }[s] || s; }
+            function escapeHtml(str) { const div = document.createElement('div'); div.textContent = str || ''; return div.innerHTML; }
+            function mostrarModalEmail(amostra) {
+                const tipoEnvioLabel = amostra.tipoEnvio === 'pedido_recente' ? 'Possui pedido recente (envio junto ao pedido)' : 'Via Correio (envio separado)';
+                const prazoFormatado = new Date(amostra.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
+                const dataAtual = new Date().toLocaleDateString('pt-BR');
+                const emailTexto = `De: amostras@donaritaembalagens.com.br
+        Para: logistica@donaritaembalagens.com.br
+        Assunto: SOLICITAÇÃO DE AMOSTRA - ${amostra.empresa.toUpperCase()}
+
+        ═══════════════════════════════════
+        📦 SOLICITAÇÃO DE AMOSTRA
+        ═══════════════════════════════════
+
+        🏢 EMPRESA: ${amostra.empresa}
+        👤 CONTATO: ${amostra.nomePessoa}
+        📍 ENDEREÇO: ${amostra.endereco}
+        📧 EMAIL: ${amostra.emailContato || 'Não informado'}
+        📞 TELEFONE: ${amostra.telefone || 'Não informado'}
+
+        ───────────────────────────────────
+        🎁 MATERIAIS SOLICITADOS:
+        ${formatarParaEmail(amostra.material)}
+
+        📊 QUANTIDADES:
+        ${formatarParaEmail(amostra.quantidade)}
+        ───────────────────────────────────
+
+        ⏰ PRAZO MÁXIMO PARA ENVIO: ${prazoFormatado}
+        🚚 TIPO DE ENVIO: ${tipoEnvioLabel}
+
+        📝 OBSERVAÇÕES: ${amostra.observacoes || 'Nenhuma'}
+
+        ═══════════════════════════════════
+        ID: ${amostra.id}
+        Gerado pelo Sistema Dona Rita Amostras
+        Data: ${dataAtual}
+        ═══════════════════════════════════`;
+                emailContent.textContent = emailTexto;
+                btnCopy.classList.remove('copied');
+                btnCopy.innerHTML = '<i class="fas fa-copy"></i> Copiar texto do email';
+                copyFeedback.style.display = 'none';
+                modalEmail.style.display = 'flex';
+            }
+            function verDetalhes(id) {
+                const a = amostras.find(x => x.id === id); if (!a) return;
+                const prazoFormatado = new Date(a.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
+                const dataCriacao = new Date(a.dataCriacao).toLocaleString('pt-BR');
+                const tipoEnvioLabel = a.tipoEnvio === 'pedido_recente' ? '📦 Possui pedido recente' : '🚚 Via Correio';
+                document.getElementById('detalhesContent').innerHTML = `
+                    <div class="detail-grid">
+                        <div class="detail-item"><span class="dl">ID</span><span class="dv">${a.id}</span></div>
+                        <div class="detail-item"><span class="dl">Data</span><span class="dv">${dataCriacao}</span></div>
+                        <div class="detail-item"><span class="dl">Empresa</span><span class="dv">${escapeHtml(a.empresa)}</span></div>
+                        <div class="detail-item"><span class="dl">Contato</span><span class="dv">${escapeHtml(a.nomePessoa)}</span></div>
+                        <div class="detail-item detail-full"><span class="dl">Endereço</span><span class="dv">${escapeHtml(a.endereco)}</span></div>
+                        <div class="detail-item detail-full"><span class="dl">Materiais</span><span class="dv">${formatarParaExibicao(a.material)}</span></div>
+                        <div class="detail-item detail-full"><span class="dl">Quantidades</span><span class="dv">${formatarParaExibicao(a.quantidade)}</span></div>
+                        <div class="detail-item"><span class="dl">Prazo</span><span class="dv">${prazoFormatado}</span></div>
+                        <div class="detail-item"><span class="dl">Envio</span><span class="dv">${tipoEnvioLabel}</span></div>
+                        <div class="detail-item"><span class="dl">Status</span><span class="dv"><span class="badge badge-${a.status}">${getStatusLabel(a.status)}</span></span></div>
+                        <div class="detail-item detail-full"><span class="dl">Obs</span><span class="dv">${a.observacoes || 'Nenhuma'}</span></div>
+                        <div class="detail-item detail-full">
+                            <span class="dl">Alterar Status</span>
+                            <select class="status-select" onchange="alterarStatus('${a.id}', this.value)">
+                                <option value="pendente" ${a.status==='pendente'?'selected':''}>Pendente</option>
+                                <option value="urgente" ${a.status==='urgente'?'selected':''}>⚠ Urgente</option>
+                                <option value="enviado" ${a.status==='enviado'?'selected':''}>Enviado</option>
+                                <option value="concluido" ${a.status==='concluido'?'selected':''}>Concluído</option>
+                            </select>
+                        </div>
+                    </div>`;
+                modalDetalhes.style.display = 'flex';
+            }
+            function mostrarEmailDoDetalhe(id) {
+                const a = amostras.find(x => x.id === id);
+                if (a) { modalDetalhes.style.display = 'none'; mostrarModalEmail(a); }
+            }
+            function menuStatus(id, statusAtual) {
+                const opcoes = ['pendente','urgente','enviado','concluido'];
+                const disp = opcoes.filter(s => s !== statusAtual);
+                const msg = disp.map((s,i) => `${i+1}. ${getStatusLabel(s)}`).join('\n');
+                const escolha = prompt(`Alterar status de "${getStatusLabel(statusAtual)}" para:\n\n${msg}\n\nDigite o número:`);
+                if (escolha) {
+                    const idx = parseInt(escolha) - 1;
+                    if (idx >= 0 && idx < disp.length) alterarStatus(id, disp[idx]);
+                }
+            }
+            function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
+            function copiarEmail() {
+                navigator.clipboard.writeText(emailContent.textContent).then(() => {
+                    btnCopy.classList.add('copied'); btnCopy.innerHTML = '<i class="fas fa-check"></i> Copiado!'; copyFeedback.style.display = 'inline';
+                    setTimeout(() => { btnCopy.classList.remove('copied'); btnCopy.innerHTML = '<i class="fas fa-copy"></i> Copiar texto do email'; copyFeedback.style.display = 'none'; }, 2500);
+                }).catch(() => {
+                    const ta = document.createElement('textarea'); ta.value = emailContent.textContent; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+                    btnCopy.classList.add('copied'); btnCopy.innerHTML = '<i class="fas fa-check"></i> Copiado!'; copyFeedback.style.display = 'inline';
+                    setTimeout(() => { btnCopy.classList.remove('copied'); btnCopy.innerHTML = '<i class="fas fa-copy"></i> Copiar texto do email'; copyFeedback.style.display = 'none'; }, 2500);
+                });
+            }
+            function showToast(msg, tipo = 'info') {
+                const toast = document.createElement('div'); toast.className = `toast toast-${tipo}`;
+                const icones = { success:'fa-check-circle', error:'fa-exclamation-circle', info:'fa-info-circle' };
+                toast.innerHTML = `<i class="fas ${icones[tipo]||icones.info}"></i> ${msg}`;
+                toastContainer.appendChild(toast);
+                setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3200);
+            }
+            function carregarDadosDemo() {
+                if (amostras.length > 0 && !confirm('Já existem solicitações. Adicionar dados demo mesmo assim?')) return;
+                const hoje = new Date();
+                const dias = o => { const d = new Date(hoje); d.setDate(d.getDate()+o); return d.toISOString().split('T')[0]; };
+                const demos = [
+                    { id:'AM-DEMO001', dataCriacao:new Date(hoje.getTime()-5*86400000).toISOString(), material:'Sacola plástica personalizada 30x40cm', quantidade:'10 unidades', nomePessoa:'Maria Silva', endereco:'Rua das Flores, 123 - Centro - SP', empresa:'Loja Flor de Lis', prazo:dias(1), tipoEnvio:'pedido_recente', emailContato:'maria@flordelis.com.br', telefone:'(11) 99999-0001', observacoes:'Cliente VIP', status:'urgente' },
+                    { id:'AM-DEMO002', dataCriacao:new Date(hoje.getTime()-3*86400000).toISOString(), material:'Caixa de papelão kraft 20x20x15cm'+SEPARADOR+'Fita adesiva personalizada', quantidade:'3 unidades'+SEPARADOR+'1 rolo', nomePessoa:'João Santos', endereco:'Av. Paulista, 1000 - SP', empresa:'Empório Natural', prazo:dias(5), tipoEnvio:'correio', emailContato:'joao@emporionatural.com.br', telefone:'(11) 98888-0002', observacoes:'Dois materiais', status:'pendente' },
+                    { id:'AM-DEMO003', dataCriacao:new Date(hoje.getTime()-10*86400000).toISOString(), material:'Fita adesiva personalizada 48mm', quantidade:'1 rolo', nomePessoa:'Ana Costa', endereco:'Rua XV de Novembro, 500 - PR', empresa:'Ateliê Ana Costa', prazo:dias(-2), tipoEnvio:'correio', emailContato:'ana@atelie.com', telefone:'(41) 97777-0003', observacoes:'Enviado', status:'enviado' },
+                    { id:'AM-DEMO004', dataCriacao:new Date(hoje.getTime()-15*86400000).toISOString(), material:'Embalagem premium'+SEPARADOR+'Saco craft', quantidade:'5 conj'+SEPARADOR+'8 un', nomePessoa:'Carlos Eduardo', endereco:'Alameda Santos, 200 - SP', empresa:'Presentes Finos', prazo:dias(-8), tipoEnvio:'pedido_recente', emailContato:'carlos@presentes.com', telefone:'(11) 96666-0004', observacoes:'Entregue', status:'concluido' },
+                    { id:'AM-DEMO005', dataCriacao:new Date(hoje.getTime()-1*86400000).toISOString(), material:'Saco de papel craft com alça', quantidade:'8 unidades', nomePessoa:'Fernanda Lima', endereco:'Rua das Palmeiras, 45 - RJ', empresa:'Boutique Lima', prazo:dias(0), tipoEnvio:'correio', emailContato:'fernanda@boutique.com', telefone:'(21) 95555-0005', observacoes:'URGENTE', status:'urgente' }
+                ];
+                amostras = [...demos, ...amostras];
+                salvarDados(); renderizarDashboard(); showToast('Dados demo carregados!', 'success');
+            }
+            window.verDetalhes = verDetalhes;
+            window.menuStatus = menuStatus;
+            window.excluirAmostra = excluirAmostra;
+            window.alterarStatus = alterarStatus;
+            window.mostrarEmailDoDetalhe = mostrarEmailDoDetalhe;
+            window.fecharModal = fecharModal;
+            window.copiarEmail = copiarEmail;
+            window.showToast = showToast;
+            init();
+        })();
+    </script>
+</body>
+</html>
