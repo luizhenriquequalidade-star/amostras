@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -77,17 +76,74 @@ html
             opacity: 0.25;
             animation: floatUp 18s infinite ease-in;
         }
-        .bg-particle:nth-child(1) { width: 180px; height: 180px; left: 5%; bottom: -200px; animation-delay: 0s; animation-duration: 20s; }
-        .bg-particle:nth-child(2) { width: 120px; height: 120px; left: 25%; bottom: -150px; animation-delay: 4s; animation-duration: 16s; opacity: 0.2; }
-        .bg-particle:nth-child(3) { width: 200px; height: 200px; left: 55%; bottom: -250px; animation-delay: 8s; animation-duration: 22s; opacity: 0.18; }
-        .bg-particle:nth-child(4) { width: 100px; height: 100px; left: 75%; bottom: -130px; animation-delay: 12s; animation-duration: 14s; opacity: 0.3; }
-        .bg-particle:nth-child(5) { width: 160px; height: 160px; left: 88%; bottom: -200px; animation-delay: 6s; animation-duration: 19s; opacity: 0.22; }
-        .bg-particle:nth-child(6) { width: 140px; height: 140px; left: 40%; bottom: -180px; animation-delay: 15s; animation-duration: 17s; opacity: 0.2; }
+        .bg-particle:nth-child(1) {
+            width: 180px;
+            height: 180px;
+            left: 5%;
+            bottom: -200px;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+        .bg-particle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            left: 25%;
+            bottom: -150px;
+            animation-delay: 4s;
+            animation-duration: 16s;
+            opacity: 0.2;
+        }
+        .bg-particle:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            left: 55%;
+            bottom: -250px;
+            animation-delay: 8s;
+            animation-duration: 22s;
+            opacity: 0.18;
+        }
+        .bg-particle:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            left: 75%;
+            bottom: -130px;
+            animation-delay: 12s;
+            animation-duration: 14s;
+            opacity: 0.3;
+        }
+        .bg-particle:nth-child(5) {
+            width: 160px;
+            height: 160px;
+            left: 88%;
+            bottom: -200px;
+            animation-delay: 6s;
+            animation-duration: 19s;
+            opacity: 0.22;
+        }
+        .bg-particle:nth-child(6) {
+            width: 140px;
+            height: 140px;
+            left: 40%;
+            bottom: -180px;
+            animation-delay: 15s;
+            animation-duration: 17s;
+            opacity: 0.2;
+        }
         @keyframes floatUp {
-            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.25; }
-            30% { opacity: 0.45; }
-            70% { opacity: 0.15; }
-            100% { transform: translateY(-115vh) scale(0.5) rotate(180deg); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.25;
+            }
+            30% {
+                opacity: 0.45;
+            }
+            70% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-115vh) scale(0.5) rotate(180deg);
+                opacity: 0;
+            }
         }
         .app-container {
             position: relative;
@@ -201,8 +257,14 @@ html
             animation: fadeSlideIn 0.6s ease-out;
         }
         @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-card::before {
             content: '';
@@ -458,8 +520,12 @@ html
             animation: shimmer 2.5s infinite;
         }
         @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
         }
         .btn-submit span {
             position: relative;
@@ -563,9 +629,16 @@ html
             animation: shake 0.5s;
         }
         @keyframes shake {
-            0%,100% { transform: translateX(0); }
-            25% { transform: translateX(-6px); }
-            75% { transform: translateX(6px); }
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-6px);
+            }
+            75% {
+                transform: translateX(6px);
+            }
         }
         .dashboard-header {
             display: flex;
@@ -646,11 +719,26 @@ html
             color: var(--cinza-500);
             font-weight: 500;
         }
-        .stat-card.total .stat-icon { background: #ede0f7; color: var(--roxo-600); }
-        .stat-card.pendentes .stat-icon { background: #fef3c7; color: #b45309; }
-        .stat-card.urgentes .stat-icon { background: #fee2e2; color: #dc2626; }
-        .stat-card.enviados .stat-icon { background: #dbeafe; color: #2563eb; }
-        .stat-card.concluidos .stat-icon { background: #d1fae5; color: #059669; }
+        .stat-card.total .stat-icon {
+            background: #ede0f7;
+            color: var(--roxo-600);
+        }
+        .stat-card.pendentes .stat-icon {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .stat-card.urgentes .stat-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .stat-card.enviados .stat-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .stat-card.concluidos .stat-icon {
+            background: #d1fae5;
+            color: #059669;
+        }
         .stat-card.active-filter {
             border-color: var(--roxo-500) !important;
             box-shadow: 0 0 0 4px rgba(109, 40, 168, 0.12) !important;
@@ -676,8 +764,15 @@ html
             color: var(--cinza-700);
             white-space: nowrap;
         }
-        .filter-btn:hover { border-color: var(--roxo-300); color: var(--roxo-600); }
-        .filter-btn.active { background: var(--roxo-500); color: #fff; border-color: var(--roxo-500); }
+        .filter-btn:hover {
+            border-color: var(--roxo-300);
+            color: var(--roxo-600);
+        }
+        .filter-btn.active {
+            background: var(--roxo-500);
+            color: #fff;
+            border-color: var(--roxo-500);
+        }
         .search-input {
             padding: 9px 16px;
             border-radius: 20px;
@@ -690,7 +785,10 @@ html
             transition: var(--transicao);
             background: #fff;
         }
-        .search-input:focus { border-color: var(--roxo-400); box-shadow: 0 0 0 3px rgba(139, 63, 207, 0.08); }
+        .search-input:focus {
+            border-color: var(--roxo-400);
+            box-shadow: 0 0 0 3px rgba(139, 63, 207, 0.08);
+        }
         .btn-demo {
             padding: 9px 18px;
             border-radius: 20px;
@@ -704,7 +802,10 @@ html
             font-family: 'Poppins', sans-serif;
             white-space: nowrap;
         }
-        .btn-demo:hover { background: var(--roxo-50); border-color: var(--roxo-500); }
+        .btn-demo:hover {
+            background: var(--roxo-50);
+            border-color: var(--roxo-500);
+        }
         .table-container {
             background: #fff;
             border-radius: var(--raio-lg);
@@ -712,9 +813,17 @@ html
             box-shadow: var(--sombra-md);
             border: 1px solid var(--roxo-100);
         }
-        .table-wrapper { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        table thead { background: var(--roxo-50); }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        table thead {
+            background: var(--roxo-50);
+        }
         table thead th {
             padding: 14px 12px;
             text-align: left;
@@ -731,8 +840,12 @@ html
             vertical-align: middle;
             color: #3a3144;
         }
-        table tbody tr { transition: var(--transicao); }
-        table tbody tr:hover { background: #fdfbff; }
+        table tbody tr {
+            transition: var(--transicao);
+        }
+        table tbody tr:hover {
+            background: #fdfbff;
+        }
         .badge {
             display: inline-block;
             padding: 5px 12px;
@@ -742,112 +855,360 @@ html
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-        .badge-pendente { background: #fef3c7; color: #92400e; }
-        .badge-urgente { background: #fee2e2; color: #b91c1c; animation: pulseBadge 2s infinite; }
+        .badge-pendente {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .badge-urgente {
+            background: #fee2e2;
+            color: #b91c1c;
+            animation: pulseBadge 2s infinite;
+        }
         @keyframes pulseBadge {
-            0%,100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+            }
         }
-        .badge-enviado { background: #dbeafe; color: #1d4ed8; }
-        .badge-concluido { background: #d1fae5; color: #065f46; }
+        .badge-enviado {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        .badge-concluido {
+            background: #d1fae5;
+            color: #065f46;
+        }
         .action-btn {
-            width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
-            font-size: 0.8rem; transition: var(--transicao); display: inline-flex;
-            align-items: center; justify-content: center; margin: 0 2px;
-            background: #f3f4f6; color: #4b5563;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transicao);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 2px;
+            background: #f3f4f6;
+            color: #4b5563;
         }
-        .action-btn:hover { background: var(--roxo-100); color: var(--roxo-600); }
-        .action-btn.delete:hover { background: #fee2e2; color: #dc2626; }
-        .action-btn.view:hover { background: #dbeafe; color: #2563eb; }
-        .empty-state { text-align: center; padding: 50px 20px; color: var(--cinza-500); }
-        .empty-state i { font-size: 60px; color: var(--roxo-200); margin-bottom: 12px; }
+        .action-btn:hover {
+            background: var(--roxo-100);
+            color: var(--roxo-600);
+        }
+        .action-btn.delete:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .action-btn.view:hover {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--cinza-500);
+        }
+        .empty-state i {
+            font-size: 60px;
+            color: var(--roxo-200);
+            margin-bottom: 12px;
+        }
         .modal-overlay {
-            position: fixed; inset: 0; background: rgba(30,5,51,0.7); z-index: 1000;
-            display: flex; align-items: center; justify-content: center; padding: 20px;
-            animation: fadeIn 0.3s ease; backdrop-filter: blur(4px);
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 5, 51, 0.7);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(4px);
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
         .modal-dialog {
-            background: #fff; border-radius: var(--raio-lg); width: 100%; max-width: 650px;
-            max-height: 85vh; overflow-y: auto; box-shadow: var(--sombra-xl);
-            animation: scaleIn 0.3s ease; position: relative;
+            background: #fff;
+            border-radius: var(--raio-lg);
+            width: 100%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--sombra-xl);
+            animation: scaleIn 0.3s ease;
+            position: relative;
         }
-        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
         .modal-header {
-            padding: 18px 24px; border-bottom: 1px solid #eee; display: flex;
-            justify-content: space-between; align-items: center; position: sticky;
-            top: 0; background: #fff; z-index: 2; border-radius: var(--raio-lg) var(--raio-lg) 0 0;
+            padding: 18px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 2;
+            border-radius: var(--raio-lg) var(--raio-lg) 0 0;
         }
-        .modal-header h3 { font-size: 1.1rem; color: var(--roxo-800); display: flex; align-items: center; gap: 8px; }
+        .modal-header h3 {
+            font-size: 1.1rem;
+            color: var(--roxo-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         .modal-close {
-            width: 36px; height: 36px; border-radius: 50%; border: none; background: #f3f4f6;
-            cursor: pointer; font-size: 1rem; transition: var(--transicao); display: flex;
-            align-items: center; justify-content: center; color: #6b7280;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f3f4f6;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transicao);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
         }
-        .modal-close:hover { background: #fee2e2; color: #dc2626; }
-        .modal-body { padding: 20px 24px; }
+        .modal-close:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .modal-body {
+            padding: 20px 24px;
+        }
         .email-preview {
-            background: #f9fafb; border: 1px solid #e5e7eb; border-radius: var(--raio-sm);
-            padding: 16px; font-family: 'Courier New', monospace; font-size: 0.85rem;
-            line-height: 1.7; white-space: pre-wrap; color: #1f2937; max-height: 300px;
-            overflow-y: auto; margin-bottom: 12px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--raio-sm);
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            color: #1f2937;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 12px;
         }
         .btn-copy {
-            padding: 10px 20px; background: var(--roxo-500); color: #fff; border: none;
-            border-radius: 25px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif;
-            transition: var(--transicao); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+            padding: 10px 20px;
+            background: var(--roxo-500);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transicao);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .btn-copy:hover { background: var(--roxo-600); }
-        .btn-copy.copied { background: #10b981 !important; }
-        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .detail-item { display: flex; flex-direction: column; gap: 2px; }
-        .detail-item .dl { font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-        .detail-item .dv { font-size: 0.9rem; color: #1f2937; font-weight: 500; }
-        .detail-full { grid-column: 1 / -1; }
+        .btn-copy:hover {
+            background: var(--roxo-600);
+        }
+        .btn-copy.copied {
+            background: #10b981 !important;
+        }
+        .btn-abrir-email {
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transicao);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 8px;
+        }
+        .btn-abrir-email:hover {
+            background: #2563eb;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .alerta-email-cliente {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--raio-sm);
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            font-size: 0.82rem;
+            color: #1e40af;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.5;
+        }
+        .alerta-email-cliente i {
+            font-size: 1.2rem;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .detail-item .dl {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .detail-item .dv {
+            font-size: 0.9rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        .detail-full {
+            grid-column: 1 / -1;
+        }
         .status-select {
-            padding: 8px 12px; border-radius: 20px; border: 2px solid var(--cinza-300);
-            font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: #fff;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 2px solid var(--cinza-300);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: #fff;
         }
         .toast-container {
-            position: fixed; top: 20px; right: 20px; z-index: 2000;
-            display: flex; flex-direction: column; gap: 10px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .toast {
-            padding: 14px 20px; border-radius: 30px; color: #fff; font-weight: 600;
-            font-size: 0.85rem; box-shadow: var(--sombra-lg);
+            padding: 14px 20px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: var(--sombra-lg);
             animation: slideToast 0.4s ease, fadeOutToast 0.4s ease 2.8s forwards;
-            display: flex; align-items: center; gap: 8px; max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 400px;
         }
-        .toast-success { background: #10b981; }
-        .toast-error { background: #ef4444; }
-        .toast-info { background: var(--roxo-500); }
+        .toast-success {
+            background: #10b981;
+        }
+        .toast-error {
+            background: #ef4444;
+        }
+        .toast-info {
+            background: var(--roxo-500);
+        }
         @keyframes slideToast {
-            from { transform: translateX(120%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
         @keyframes fadeOutToast {
-            from { opacity: 1; }
-            to { opacity: 0; transform: translateY(-10px); }
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
         }
         @media (max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .amostra-item { grid-template-columns: 1fr 1fr auto; gap: 8px; padding: 12px 10px; }
-            .header-logo .brand-name { font-size: 1.4rem; }
-            .header .admin-link { position: static; margin-top: 8px; justify-content: center; }
-            .header { display: flex; flex-direction: column; align-items: center; }
-            .form-card { padding: 24px 16px; }
-            .stats-grid { grid-template-columns: repeat(2,1fr); }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .amostra-item {
+                grid-template-columns: 1fr 1fr auto;
+                gap: 8px;
+                padding: 12px 10px;
+            }
+            .header-logo .brand-name {
+                font-size: 1.4rem;
+            }
+            .header .admin-link {
+                position: static;
+                margin-top: 8px;
+                justify-content: center;
+            }
+            .header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-card {
+                padding: 24px 16px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         @media (max-width: 480px) {
-            .amostra-item { grid-template-columns: 1fr; gap: 8px; padding: 10px 8px; }
-            .amostra-item .btn-remover-amostra { position: absolute; top: 6px; right: 6px; margin-top: 0; }
+            .amostra-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 10px 8px;
+            }
+            .amostra-item .btn-remover-amostra {
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                margin-top: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="bg-particles">
-        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
-        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
     </div>
     <div class="app-container">
         <header class="header" id="mainHeader">
@@ -940,7 +1301,22 @@ html
         </div>
     </div>
     <div class="modal-overlay" id="modalEmail" style="display:none;">
-        <div class="modal-dialog"><div class="modal-header"><h3><i class="fas fa-envelope" style="color:var(--roxo-500);"></i> Email Gerado</h3><button class="modal-close" onclick="fecharModal('modalEmail')">✕</button></div><div class="modal-body"><p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">📋 O email abaixo foi formatado com os dados da solicitação:</p><div class="email-preview" id="emailContent"></div><button class="btn-copy" id="btnCopy" onclick="copiarEmail()"><i class="fas fa-copy"></i> Copiar texto do email</button><span style="margin-left:10px;font-size:0.8rem;color:#10b981;display:none;" id="copyFeedback">✓ Copiado!</span></div></div>
+        <div class="modal-dialog">
+            <div class="modal-header"><h3><i class="fas fa-envelope" style="color:var(--roxo-500);"></i> Email Gerado</h3><button class="modal-close" onclick="fecharModal('modalEmail')">✕</button></div>
+            <div class="modal-body">
+                <div class="alerta-email-cliente" id="alertaEmailCliente">
+                    <i class="fas fa-info-circle"></i>
+                    <span id="textoAlertaEmail">📧 Detectamos que você está usando <strong id="plataformaDetectada">seu dispositivo</strong>. Seu aplicativo de email padrão será aberto automaticamente. Caso não abra, utilize o botão abaixo.</span>
+                </div>
+                <p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">📋 O email abaixo foi formatado com os dados da solicitação:</p>
+                <div class="email-preview" id="emailContent"></div>
+                <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
+                    <button class="btn-abrir-email" id="btnAbrirEmail" onclick="window.dispararMailtoAtual()"><i class="fas fa-envelope"></i> Abrir no Aplicativo de Email</button>
+                    <button class="btn-copy" id="btnCopy" onclick="copiarEmail()"><i class="fas fa-copy"></i> Copiar texto do email</button>
+                    <span style="font-size:0.8rem;color:#10b981;display:none;" id="copyFeedback">✓ Copiado!</span>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-overlay" id="modalDetalhes" style="display:none;">
         <div class="modal-dialog"><div class="modal-header"><h3><i class="fas fa-info-circle" style="color:var(--roxo-500);"></i> Detalhes da Solicitação</h3><button class="modal-close" onclick="fecharModal('modalDetalhes')">✕</button></div><div class="modal-body" id="detalhesContent"></div></div>
@@ -991,6 +1367,7 @@ html
         const ADMIN_SESSION_KEY = 'donaRita_adminAuth';
         const SENHA_ADMIN = 'admin123';
         const SEPARADOR = ' || ';
+        const EMAIL_DESTINO = 'amostras@donaritaembalagens.com.br';
 
         // ========== ELEMENTOS DOM ==========
         const publicSection = document.getElementById('publicSection');
@@ -1015,6 +1392,10 @@ html
         const copyFeedback = document.getElementById('copyFeedback');
         const toastContainer = document.getElementById('toastContainer');
         const statsGrid = document.getElementById('statsGrid');
+        const alertaEmailCliente = document.getElementById('alertaEmailCliente');
+        const textoAlertaEmail = document.getElementById('textoAlertaEmail');
+        const plataformaDetectada = document.getElementById('plataformaDetectada');
+        const btnAbrirEmail = document.getElementById('btnAbrirEmail');
 
         // ========== ESTADO ==========
         let amostras = [];
@@ -1022,6 +1403,7 @@ html
         let amostraEmailTemp = null;
         let contadorItens = 1;
         let isLoading = false;
+        let mailtoUrlAtual = '';
 
         // ========== FUNÇÕES DO FIREBASE ==========
         async function carregarDadosDoFirestore() {
@@ -1071,6 +1453,159 @@ html
                 console.error("Erro ao excluir:", error);
                 showToast("Erro ao excluir solicitação. Tente novamente.", "error");
                 return false;
+            }
+        }
+
+        // ========== DETECÇÃO DE PLATAFORMA / CLIENTE DE EMAIL ==========
+        function detectarPlataformaEmail() {
+            const ua = navigator.userAgent || '';
+            const platform = navigator.platform || '';
+            let sistema = '';
+            let clienteEmail = '';
+
+            if (/Android/i.test(ua)) {
+                sistema = 'Android';
+                clienteEmail = 'Gmail / aplicativo de email do Android';
+            } else if (/iPhone|iPad|iPod/i.test(ua) || /Macintosh/i.test(ua) && 'ontouchend' in document) {
+                sistema = 'iOS';
+                clienteEmail = 'Apple Mail / aplicativo de email do iPhone';
+            } else if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(platform) || /Macintosh/i.test(ua)) {
+                sistema = 'macOS';
+                clienteEmail = 'Apple Mail / Outlook para Mac';
+            } else if (/Windows/i.test(platform) || /Windows/i.test(ua)) {
+                sistema = 'Windows';
+                clienteEmail = 'Outlook / Windows Mail';
+            } else if (/Linux/i.test(platform) || /Linux/i.test(ua)) {
+                sistema = 'Linux';
+                clienteEmail = 'Thunderbird / Evolution / cliente de email padrão';
+            } else {
+                sistema = 'seu dispositivo';
+                clienteEmail = 'seu aplicativo de email padrão';
+            }
+
+            // Verifica se há webmail configurado (aproximação)
+            if (/Chrome/i.test(ua) && !/Android|iPhone|iPad/i.test(ua)) {
+                clienteEmail += ' (ou Gmail no navegador)';
+            }
+
+            return { sistema, clienteEmail };
+        }
+
+        function atualizarAlertaEmail() {
+            const { sistema, clienteEmail } = detectarPlataformaEmail();
+            if (plataformaDetectada) {
+                plataformaDetectada.textContent = sistema;
+            }
+            if (textoAlertaEmail) {
+                textoAlertaEmail.innerHTML =
+                    `📧 Detectamos que você está usando <strong>${sistema}</strong>. Seu aplicativo de email (<strong>${clienteEmail}</strong>) será aberto. Caso não abra automaticamente, utilize o botão "Abrir no Aplicativo de Email" abaixo.`;
+            }
+        }
+
+        // ========== CONSTRUÇÃO DO EMAIL E MAILTO ==========
+        function construirCorpoEmail(amostra) {
+            const tipoEnvioLabel = amostra.tipoEnvio === 'pedido_recente' ?
+                'Possui pedido recente (envio junto ao pedido)' :
+                'Via Correio (envio separado)';
+            const prazoFormatado = new Date(amostra.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+
+            return `De: ${amostra.emailContato || 'sistema@donaritaembalagens.com.br'}
+Para: ${EMAIL_DESTINO}
+Assunto: SOLICITAÇÃO DE AMOSTRA - ${amostra.empresa.toUpperCase()} - ${amostra.nomePessoa}
+
+═══════════════════════════════════
+📦 SOLICITAÇÃO DE AMOSTRA
+═══════════════════════════════════
+
+🏢 EMPRESA: ${amostra.empresa}
+👤 CONTATO: ${amostra.nomePessoa}
+📍 ENDEREÇO: ${amostra.endereco}
+📧 EMAIL: ${amostra.emailContato || 'Não informado'}
+📞 TELEFONE: ${amostra.telefone || 'Não informado'}
+
+───────────────────────────────────
+🎁 MATERIAIS SOLICITADOS:
+${formatarParaEmail(amostra.material)}
+
+📊 QUANTIDADES:
+${formatarParaEmail(amostra.quantidade)}
+───────────────────────────────────
+
+⏰ PRAZO MÁXIMO PARA ENVIO: ${prazoFormatado}
+🚚 TIPO DE ENVIO: ${tipoEnvioLabel}
+
+📝 OBSERVAÇÕES: ${amostra.observacoes || 'Nenhuma'}
+
+═══════════════════════════════════
+ID: ${amostra.id}
+Gerado pelo Sistema Dona Rita Amostras
+Data: ${dataAtual}
+═══════════════════════════════════`;
+        }
+
+        function construirMailtoUrl(amostra) {
+            const assunto = `SOLICITAÇÃO DE AMOSTRA - ${amostra.empresa} - ${amostra.nomePessoa}`;
+            const corpo = construirCorpoEmail(amostra);
+
+            let mailtoUrl = `mailto:${EMAIL_DESTINO}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+            // Substitui LF por CRLF para melhor compatibilidade com clientes de email
+            mailtoUrl = mailtoUrl.replace(/%0A/g, '%0D%0A');
+
+            // Se a URL for muito longa (>1900 chars), pode haver problemas com alguns clientes
+            // Nesse caso, mantemos a URL como está mas alertamos
+            if (mailtoUrl.length > 1900) {
+                console.warn('Mailto URL muito longa:', mailtoUrl.length, 'caracteres. Alguns clientes de email podem truncar o corpo.');
+            }
+
+            return mailtoUrl;
+        }
+
+        function dispararMailto(amostra) {
+            const mailtoUrl = construirMailtoUrl(amostra);
+            mailtoUrlAtual = mailtoUrl;
+
+            // Método 1: Tenta usar um link oculto (mais confiável para não navegar para longe da página)
+            try {
+                const link = document.createElement('a');
+                link.href = mailtoUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('📧 Abrindo cliente de email... Verifique seu aplicativo de email.', 'info');
+            } catch (e) {
+                // Método 2: Fallback com location.href
+                try {
+                    window.location.href = mailtoUrl;
+                    showToast('📧 Abrindo cliente de email...', 'info');
+                } catch (e2) {
+                    showToast('Não foi possível abrir o email automaticamente. Use o botão "Abrir no Aplicativo de Email".',
+                        'error');
+                }
+            }
+        }
+
+        function dispararMailtoAtual() {
+            if (mailtoUrlAtual) {
+                try {
+                    const link = document.createElement('a');
+                    link.href = mailtoUrlAtual;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast('📧 Reabrindo cliente de email...', 'info');
+                } catch (e) {
+                    window.location.href = mailtoUrlAtual;
+                }
+            } else if (amostraEmailTemp) {
+                dispararMailto(amostraEmailTemp);
+                mailtoUrlAtual = construirMailtoUrl(amostraEmailTemp);
             }
         }
 
@@ -1186,15 +1721,16 @@ html
             const labelQtd = item.querySelector('.label-qtd');
             const materialNome = inputMaterial.value.trim();
             if (labelQtd) {
-                labelQtd.innerHTML = materialNome.length > 0
-                    ? '<span class="req">*</span> Quantidade (' + escapeHtml(materialNome) + ')'
-                    : '<span class="req">*</span> Quantidade';
+                labelQtd.innerHTML = materialNome.length > 0 ?
+                    '<span class="req">*</span> Quantidade (' + escapeHtml(materialNome) + ')' :
+                    '<span class="req">*</span> Quantidade';
             }
         }
 
         function coletarDadosAmostras() {
             const itens = amostrasContainer.querySelectorAll('.amostra-item');
-            const materiais = [], quantidades = [];
+            const materiais = [],
+                quantidades = [];
             let todosValidos = true;
             itens.forEach(item => {
                 const matInput = item.querySelector('.campo-material-amostra');
@@ -1205,8 +1741,10 @@ html
                 quantidades.push(qtd || '');
                 if (!mat || !qtd) {
                     todosValidos = false;
-                    if (!mat && matInput) { matInput.style.borderColor = '#ef4444'; setTimeout(() => { if (matInput) matInput.style.borderColor = ''; }, 2500); }
-                    if (!qtd && qtdInput) { qtdInput.style.borderColor = '#ef4444'; setTimeout(() => { if (qtdInput) qtdInput.style.borderColor = ''; }, 2500); }
+                    if (!mat && matInput) { matInput.style.borderColor = '#ef4444';
+                        setTimeout(() => { if (matInput) matInput.style.borderColor = ''; }, 2500); }
+                    if (!qtd && qtdInput) { qtdInput.style.borderColor = '#ef4444';
+                        setTimeout(() => { if (qtdInput) qtdInput.style.borderColor = ''; }, 2500); }
                 }
             });
             return {
@@ -1255,7 +1793,8 @@ html
             adminDashboardSection.classList.add('active');
             btnAdminLink.style.display = 'none';
             btnVoltarSite.style.display = '';
-            tableBody.innerHTML = '<tr class="empty-state"><td colspan="7"><i class="fas fa-spinner fa-spin"></i><p>Carregando dados do servidor...</p></td></tr>';
+            tableBody.innerHTML =
+                '<tr class="empty-state"><td colspan="7"><i class="fas fa-spinner fa-spin"></i><p>Carregando dados do servidor...</p></td></tr>';
             await carregarDadosDoFirestore();
             renderizarDashboard();
         }
@@ -1326,7 +1865,8 @@ html
             btnDemo.addEventListener('click', carregarDadosDemo);
 
             [modalEmail, modalDetalhes].forEach(modal => {
-                modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+                modal.addEventListener('click', e => { if (e.target === modal) modal.style.display =
+                        'none'; });
             });
 
             document.addEventListener('keydown', e => {
@@ -1335,6 +1875,11 @@ html
                     if (modalDetalhes.style.display === 'flex') modalDetalhes.style.display = 'none';
                 }
             });
+
+            // Botão de abrir email no modal
+            if (btnAbrirEmail) {
+                btnAbrirEmail.addEventListener('click', dispararMailtoAtual);
+            }
         }
 
         function atualizarFiltrosAtivos() {
@@ -1373,7 +1918,8 @@ html
             const obs = document.getElementById('campoObs').value.trim();
 
             let temErro = false;
-            if (!dadosAmostras.valido) { showToast('Preencha todos os materiais e quantidades!', 'error'); temErro = true; }
+            if (!dadosAmostras.valido) { showToast('Preencha todos os materiais e quantidades!', 'error');
+                temErro = true; }
             if (!nome || !endereco || !empresa || !prazo || !tipoEnvioRadio) {
                 showToast('Preencha todos os campos obrigatórios!', 'error');
                 [
@@ -1382,7 +1928,8 @@ html
                     { el: document.getElementById('campoEmpresa'), val: empresa },
                     { el: document.getElementById('campoPrazo'), val: prazo }
                 ].forEach(item => {
-                    if (!item.val) { item.el.style.borderColor = '#ef4444'; setTimeout(() => item.el.style.borderColor = '', 2000); }
+                    if (!item.val) { item.el.style.borderColor = '#ef4444';
+                        setTimeout(() => item.el.style.borderColor = '', 2000); }
                 });
                 if (!tipoEnvioRadio) {
                     document.querySelectorAll('input[name="tipoEnvio"]').forEach(r => {
@@ -1400,13 +1947,15 @@ html
             }
             if (temErro) return;
 
-            const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
             const dataPrazo = new Date(prazo + 'T00:00:00');
             const diffDias = Math.ceil((dataPrazo - hoje) / (1000 * 60 * 60 * 24));
             const statusInicial = diffDias <= 3 ? 'urgente' : 'pendente';
 
             const novaAmostra = {
-                id: 'AM-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2, 4).toUpperCase(),
+                id: 'AM-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2, 4)
+                    .toUpperCase(),
                 dataCriacao: new Date().toISOString(),
                 material: dadosAmostras.material,
                 quantidade: dadosAmostras.quantidade,
@@ -1427,6 +1976,7 @@ html
             btnSubmit.innerHTML = '<span><i class="fas fa-spinner fa-spin"></i> SALVANDO...</span>';
             btnSubmit.disabled = true;
 
+            // Salva no Firestore
             const sucesso = await salvarAmostraNoFirestore(novaAmostra);
 
             btnSubmit.innerHTML = btnOriginalHTML;
@@ -1435,9 +1985,28 @@ html
             if (sucesso) {
                 amostras.unshift(novaAmostra);
                 amostraEmailTemp = novaAmostra;
-                mostrarModalEmail(novaAmostra);
+
+                // Constrói a URL do mailto e armazena
+                mailtoUrlAtual = construirMailtoUrl(novaAmostra);
+
+                // Limpa o formulário
                 limparFormulario();
-                showToast('Solicitação registrada com sucesso!', 'success');
+
+                // Mostra toast de sucesso
+                showToast('✅ Solicitação registrada! Abrindo email...', 'success');
+
+                // Dispara o mailto para abrir o cliente de email automaticamente
+                // Pequeno delay para o toast aparecer primeiro
+                setTimeout(() => {
+                    dispararMailto(novaAmostra);
+                }, 400);
+
+                // Mostra o modal com o conteúdo do email como referência/fallback
+                // Delay um pouco maior para não competir com o mailto
+                setTimeout(() => {
+                    mostrarModalEmail(novaAmostra);
+                }, 800);
+
                 if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
                     await carregarDadosDoFirestore();
                     renderizarDashboard();
@@ -1447,7 +2016,8 @@ html
 
         function limparFormulario() {
             formAmostra.reset();
-            document.querySelectorAll('#formAmostra input, #formAmostra textarea').forEach(el => el.style.borderColor = '');
+            document.querySelectorAll('#formAmostra input, #formAmostra textarea').forEach(el => el.style.borderColor =
+                '');
             document.querySelectorAll('input[name="tipoEnvio"]').forEach(r => {
                 const label = r.parentElement.querySelector('label');
                 if (label) label.style.borderColor = '';
@@ -1505,7 +2075,8 @@ html
         function renderizarTabela() {
             const filtradas = getAmostrasFiltradas();
             if (filtradas.length === 0) {
-                tableBody.innerHTML = '<tr class="empty-state"><td colspan="7"><i class="fas fa-box-open"></i><p>Nenhuma solicitação encontrada</p></td></tr>';
+                tableBody.innerHTML =
+                    '<tr class="empty-state"><td colspan="7"><i class="fas fa-box-open"></i><p>Nenhuma solicitação encontrada</p></td></tr>';
                 return;
             }
             tableBody.innerHTML = filtradas.map(a => {
@@ -1540,12 +2111,15 @@ html
         }
 
         function mostrarModalEmail(amostra) {
-            const tipoEnvioLabel = amostra.tipoEnvio === 'pedido_recente' ? 'Possui pedido recente (envio junto ao pedido)' : 'Via Correio (envio separado)';
+            const tipoEnvioLabel = amostra.tipoEnvio === 'pedido_recente' ?
+                'Possui pedido recente (envio junto ao pedido)' :
+                'Via Correio (envio separado)';
             const prazoFormatado = new Date(amostra.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
             const dataAtual = new Date().toLocaleDateString('pt-BR');
-            const emailTexto = `De: amostras@donaritaembalagens.com.br
-Para: logistica@donaritaembalagens.com.br
-Assunto: SOLICITAÇÃO DE AMOSTRA - ${amostra.empresa.toUpperCase()}
+
+            const emailTexto = `De: ${amostra.emailContato || 'sistema@donaritaembalagens.com.br'}
+Para: ${EMAIL_DESTINO}
+Assunto: SOLICITAÇÃO DE AMOSTRA - ${amostra.empresa.toUpperCase()} - ${amostra.nomePessoa}
 
 ═══════════════════════════════════
 📦 SOLICITAÇÃO DE AMOSTRA
@@ -1575,10 +2149,19 @@ ID: ${amostra.id}
 Gerado pelo Sistema Dona Rita Amostras
 Data: ${dataAtual}
 ═══════════════════════════════════`;
+
             emailContent.textContent = emailTexto;
             btnCopy.classList.remove('copied');
             btnCopy.innerHTML = '<i class="fas fa-copy"></i> Copiar texto do email';
             copyFeedback.style.display = 'none';
+
+            // Atualiza o mailtoUrlAtual para este email
+            mailtoUrlAtual = construirMailtoUrl(amostra);
+            amostraEmailTemp = amostra;
+
+            // Atualiza o alerta de plataforma
+            atualizarAlertaEmail();
+
             modalEmail.style.display = 'flex';
         }
 
@@ -1616,14 +2199,16 @@ Data: ${dataAtual}
 
         function mostrarEmailDoDetalhe(id) {
             const a = amostras.find(x => x.id === id);
-            if (a) { modalDetalhes.style.display = 'none'; mostrarModalEmail(a); }
+            if (a) { modalDetalhes.style.display = 'none';
+                mostrarModalEmail(a); }
         }
 
         function menuStatus(id, statusAtual) {
             const opcoes = ['pendente', 'urgente', 'enviado', 'concluido'];
             const disp = opcoes.filter(s => s !== statusAtual);
             const msg = disp.map((s, i) => `${i + 1}. ${getStatusLabel(s)}`).join('\n');
-            const escolha = prompt(`Alterar status de "${getStatusLabel(statusAtual)}" para:\n\n${msg}\n\nDigite o número:`);
+            const escolha = prompt(
+                `Alterar status de "${getStatusLabel(statusAtual)}" para:\n\n${msg}\n\nDigite o número:`);
             if (escolha) {
                 const idx = parseInt(escolha) - 1;
                 if (idx >= 0 && idx < disp.length) alterarStatus(id, disp[idx]);
@@ -1680,14 +2265,37 @@ Data: ${dataAtual}
             btnDemoEl.disabled = true;
 
             const hoje = new Date();
-            const dias = o => { const d = new Date(hoje); d.setDate(d.getDate() + o); return d.toISOString().split('T')[0]; };
+            const dias = o => { const d = new Date(hoje);
+                d.setDate(d.getDate() + o); return d.toISOString().split('T')[0]; };
 
             const demos = [
-                { id: 'AM-DEMO001', dataCriacao: new Date(hoje.getTime() - 5 * 86400000).toISOString(), material: 'Sacola plástica personalizada 30x40cm', quantidade: '10 unidades', nomePessoa: 'Maria Silva', endereco: 'Rua das Flores, 123 - Centro - SP', empresa: 'Loja Flor de Lis', prazo: dias(1), tipoEnvio: 'pedido_recente', emailContato: 'maria@flordelis.com.br', telefone: '(11) 99999-0001', observacoes: 'Cliente VIP', status: 'urgente' },
-                { id: 'AM-DEMO002', dataCriacao: new Date(hoje.getTime() - 3 * 86400000).toISOString(), material: 'Caixa de papelão kraft 20x20x15cm' + SEPARADOR + 'Fita adesiva personalizada', quantidade: '3 unidades' + SEPARADOR + '1 rolo', nomePessoa: 'João Santos', endereco: 'Av. Paulista, 1000 - SP', empresa: 'Empório Natural', prazo: dias(5), tipoEnvio: 'correio', emailContato: 'joao@emporionatural.com.br', telefone: '(11) 98888-0002', observacoes: 'Dois materiais', status: 'pendente' },
-                { id: 'AM-DEMO003', dataCriacao: new Date(hoje.getTime() - 10 * 86400000).toISOString(), material: 'Fita adesiva personalizada 48mm', quantidade: '1 rolo', nomePessoa: 'Ana Costa', endereco: 'Rua XV de Novembro, 500 - PR', empresa: 'Ateliê Ana Costa', prazo: dias(-2), tipoEnvio: 'correio', emailContato: 'ana@atelie.com', telefone: '(41) 97777-0003', observacoes: 'Enviado', status: 'enviado' },
-                { id: 'AM-DEMO004', dataCriacao: new Date(hoje.getTime() - 15 * 86400000).toISOString(), material: 'Embalagem premium' + SEPARADOR + 'Saco craft', quantidade: '5 conj' + SEPARADOR + '8 un', nomePessoa: 'Carlos Eduardo', endereco: 'Alameda Santos, 200 - SP', empresa: 'Presentes Finos', prazo: dias(-8), tipoEnvio: 'pedido_recente', emailContato: 'carlos@presentes.com', telefone: '(11) 96666-0004', observacoes: 'Entregue', status: 'concluido' },
-                { id: 'AM-DEMO005', dataCriacao: new Date(hoje.getTime() - 1 * 86400000).toISOString(), material: 'Saco de papel craft com alça', quantidade: '8 unidades', nomePessoa: 'Fernanda Lima', endereco: 'Rua das Palmeiras, 45 - RJ', empresa: 'Boutique Lima', prazo: dias(0), tipoEnvio: 'correio', emailContato: 'fernanda@boutique.com', telefone: '(21) 95555-0005', observacoes: 'URGENTE', status: 'urgente' }
+                { id: 'AM-DEMO001', dataCriacao: new Date(hoje.getTime() - 5 * 86400000).toISOString(),
+                    material: 'Sacola plástica personalizada 30x40cm', quantidade: '10 unidades', nomePessoa: 'Maria Silva',
+                    endereco: 'Rua das Flores, 123 - Centro - SP', empresa: 'Loja Flor de Lis', prazo: dias(1),
+                    tipoEnvio: 'pedido_recente', emailContato: 'maria@flordelis.com.br', telefone: '(11) 99999-0001',
+                    observacoes: 'Cliente VIP', status: 'urgente' },
+                { id: 'AM-DEMO002', dataCriacao: new Date(hoje.getTime() - 3 * 86400000).toISOString(),
+                    material: 'Caixa de papelão kraft 20x20x15cm' + SEPARADOR + 'Fita adesiva personalizada',
+                    quantidade: '3 unidades' + SEPARADOR + '1 rolo', nomePessoa: 'João Santos',
+                    endereco: 'Av. Paulista, 1000 - SP', empresa: 'Empório Natural', prazo: dias(5),
+                    tipoEnvio: 'correio', emailContato: 'joao@emporionatural.com.br', telefone: '(11) 98888-0002',
+                    observacoes: 'Dois materiais', status: 'pendente' },
+                { id: 'AM-DEMO003', dataCriacao: new Date(hoje.getTime() - 10 * 86400000).toISOString(),
+                    material: 'Fita adesiva personalizada 48mm', quantidade: '1 rolo', nomePessoa: 'Ana Costa',
+                    endereco: 'Rua XV de Novembro, 500 - PR', empresa: 'Ateliê Ana Costa', prazo: dias(-2),
+                    tipoEnvio: 'correio', emailContato: 'ana@atelie.com', telefone: '(41) 97777-0003',
+                    observacoes: 'Enviado', status: 'enviado' },
+                { id: 'AM-DEMO004', dataCriacao: new Date(hoje.getTime() - 15 * 86400000).toISOString(),
+                    material: 'Embalagem premium' + SEPARADOR + 'Saco craft', quantidade: '5 conj' + SEPARADOR +
+                    '8 un', nomePessoa: 'Carlos Eduardo', endereco: 'Alameda Santos, 200 - SP',
+                    empresa: 'Presentes Finos', prazo: dias(-8), tipoEnvio: 'pedido_recente',
+                    emailContato: 'carlos@presentes.com', telefone: '(11) 96666-0004', observacoes: 'Entregue',
+                    status: 'concluido' },
+                { id: 'AM-DEMO005', dataCriacao: new Date(hoje.getTime() - 1 * 86400000).toISOString(),
+                    material: 'Saco de papel craft com alça', quantidade: '8 unidades', nomePessoa: 'Fernanda Lima',
+                    endereco: 'Rua das Palmeiras, 45 - RJ', empresa: 'Boutique Lima', prazo: dias(0),
+                    tipoEnvio: 'correio', emailContato: 'fernanda@boutique.com', telefone: '(21) 95555-0005',
+                    observacoes: 'URGENTE', status: 'urgente' }
             ];
 
             try {
@@ -1702,7 +2310,6 @@ Data: ${dataAtual}
                 showToast('Dados demo carregados com sucesso!', 'success');
             } catch (error) {
                 console.error("Erro ao carregar dados demo:", error);
-                // Fallback: inserir um por um
                 try {
                     for (const d of demos) {
                         const docRef = doc(db, "amostras", d.id);
@@ -1729,6 +2336,8 @@ Data: ${dataAtual}
         window.fecharModal = fecharModal;
         window.copiarEmail = copiarEmail;
         window.showToast = showToast;
+        window.dispararMailtoAtual = dispararMailtoAtual;
+        window.dispararMailto = dispararMailto;
 
         // ========== INICIALIZAÇÃO ==========
         init();
