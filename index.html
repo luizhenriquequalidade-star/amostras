@@ -1255,8 +1255,10 @@
                                 <div class="radio-group">
                                     <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioPedido" value="pedido_recente" required><label for="envioPedido"><i class="fas fa-box"></i> Possui pedido recente</label></div>
                                     <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioCorreio" value="correio"><label for="envioCorreio"><i class="fas fa-truck"></i> Via Correio</label></div>
+                                    <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioTransportadora" value="transportadora"><label for="envioTransportadora"><i class="fas fa-shipping-fast"></i> Transportadora</label></div>
                                 </div>
                             </div>
+                            <div class="form-group full-width"><label>Número da Nota Fiscal (se houver)</label><input type="text" id="campoNotaFiscal" placeholder="Nº da nota fiscal do pedido"></div>
                             <div class="form-group"><label>Email para contato</label><input type="email" id="campoEmail" placeholder="email@exemplo.com"></div>
                             <div class="form-group"><label>Telefone</label><input type="tel" id="campoTelefone" placeholder="(00) 00000-0000"></div>
                             <div class="form-group full-width"><label>Observações adicionais</label><textarea id="campoObs" placeholder="Alguma informação extra relevante..."></textarea></div>
@@ -1405,6 +1407,33 @@
         let isLoading = false;
         let mailtoUrlAtual = '';
 
+        // ========== FUNÇÕES AUXILIARES ==========
+        function getTipoEnvioLabel(tipo) {
+            switch (tipo) {
+                case 'pedido_recente':
+                    return '📦 Possui pedido recente (envio junto ao pedido)';
+                case 'correio':
+                    return '🚚 Via Correio (envio separado)';
+                case 'transportadora':
+                    return '🚛 Transportadora (envio por transportadora)';
+                default:
+                    return tipo || 'Não informado';
+            }
+        }
+
+        function getTipoEnvioLabelDetalhes(tipo) {
+            switch (tipo) {
+                case 'pedido_recente':
+                    return '📦 Possui pedido recente';
+                case 'correio':
+                    return '🚚 Via Correio';
+                case 'transportadora':
+                    return '🚛 Transportadora';
+                default:
+                    return tipo || 'Não informado';
+            }
+        }
+
         // ========== FUNÇÕES DO FIREBASE ==========
         async function carregarDadosDoFirestore() {
             try {
@@ -1483,7 +1512,6 @@
                 clienteEmail = 'seu aplicativo de email padrão';
             }
 
-            // Verifica se há webmail configurado (aproximação)
             if (/Chrome/i.test(ua) && !/Android|iPhone|iPad/i.test(ua)) {
                 clienteEmail += ' (ou Gmail no navegador)';
             }
@@ -1504,9 +1532,7 @@
 
         // ========== CONSTRUÇÃO DO EMAIL E MAILTO ==========
         function construirCorpoEmail(amostra) {
-            const tipoEnvioLabel = amostra.tipoEnvio === 'pedido_recente' ?
-                'Possui pedido recente (envio junto ao pedido)' :
-                'Via Correio (envio separado)';
+            const tipoEnvioLabel = getTipoEnvioLabel(amostra.tipoEnvio);
             const prazoFormatado = new Date(amostra.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
             const dataAtual = new Date().toLocaleDateString('pt-BR');
 
@@ -1534,6 +1560,7 @@ ${formatarParaEmail(amostra.quantidade)}
 
 ⏰ PRAZO MÁXIMO PARA ENVIO: ${prazoFormatado}
 🚚 TIPO DE ENVIO: ${tipoEnvioLabel}
+📋 NOTA FISCAL: ${amostra.notaFiscal || 'Não informada'}
 
 📝 OBSERVAÇÕES: ${amostra.observacoes || 'Nenhuma'}
 
@@ -1549,11 +1576,8 @@ Data: ${dataAtual}
             const corpo = construirCorpoEmail(amostra);
 
             let mailtoUrl = `mailto:${EMAIL_DESTINO}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
-            // Substitui LF por CRLF para melhor compatibilidade com clientes de email
             mailtoUrl = mailtoUrl.replace(/%0A/g, '%0D%0A');
 
-            // Se a URL for muito longa (>1900 chars), pode haver problemas com alguns clientes
-            // Nesse caso, mantemos a URL como está mas alertamos
             if (mailtoUrl.length > 1900) {
                 console.warn('Mailto URL muito longa:', mailtoUrl.length, 'caracteres. Alguns clientes de email podem truncar o corpo.');
             }
@@ -1565,7 +1589,6 @@ Data: ${dataAtual}
             const mailtoUrl = construirMailtoUrl(amostra);
             mailtoUrlAtual = mailtoUrl;
 
-            // Método 1: Tenta usar um link oculto (mais confiável para não navegar para longe da página)
             try {
                 const link = document.createElement('a');
                 link.href = mailtoUrl;
@@ -1577,7 +1600,6 @@ Data: ${dataAtual}
                 document.body.removeChild(link);
                 showToast('📧 Abrindo cliente de email... Verifique seu aplicativo de email.', 'info');
             } catch (e) {
-                // Método 2: Fallback com location.href
                 try {
                     window.location.href = mailtoUrl;
                     showToast('📧 Abrindo cliente de email...', 'info');
@@ -1876,7 +1898,6 @@ Data: ${dataAtual}
                 }
             });
 
-            // Botão de abrir email no modal
             if (btnAbrirEmail) {
                 btnAbrirEmail.addEventListener('click', dispararMailtoAtual);
             }
@@ -1913,6 +1934,7 @@ Data: ${dataAtual}
             const empresa = document.getElementById('campoEmpresa').value.trim();
             const prazo = document.getElementById('campoPrazo').value;
             const tipoEnvioRadio = document.querySelector('input[name="tipoEnvio"]:checked');
+            const notaFiscal = document.getElementById('campoNotaFiscal').value.trim();
             const email = document.getElementById('campoEmail').value.trim();
             const telefone = document.getElementById('campoTelefone').value.trim();
             const obs = document.getElementById('campoObs').value.trim();
@@ -1964,19 +1986,18 @@ Data: ${dataAtual}
                 empresa,
                 prazo,
                 tipoEnvio: tipoEnvioRadio.value,
+                notaFiscal: notaFiscal,
                 emailContato: email,
                 telefone,
                 observacoes: obs,
                 status: statusInicial,
             };
 
-            // Botão de submit em estado de carregamento
             const btnSubmit = formAmostra.querySelector('.btn-submit');
             const btnOriginalHTML = btnSubmit.innerHTML;
             btnSubmit.innerHTML = '<span><i class="fas fa-spinner fa-spin"></i> SALVANDO...</span>';
             btnSubmit.disabled = true;
 
-            // Salva no Firestore
             const sucesso = await salvarAmostraNoFirestore(novaAmostra);
 
             btnSubmit.innerHTML = btnOriginalHTML;
@@ -1986,23 +2007,16 @@ Data: ${dataAtual}
                 amostras.unshift(novaAmostra);
                 amostraEmailTemp = novaAmostra;
 
-                // Constrói a URL do mailto e armazena
                 mailtoUrlAtual = construirMailtoUrl(novaAmostra);
 
-                // Limpa o formulário
                 limparFormulario();
 
-                // Mostra toast de sucesso
                 showToast('✅ Solicitação registrada! Abrindo email...', 'success');
 
-                // Dispara o mailto para abrir o cliente de email automaticamente
-                // Pequeno delay para o toast aparecer primeiro
                 setTimeout(() => {
                     dispararMailto(novaAmostra);
                 }, 400);
 
-                // Mostra o modal com o conteúdo do email como referência/fallback
-                // Delay um pouco maior para não competir com o mailto
                 setTimeout(() => {
                     mostrarModalEmail(novaAmostra);
                 }, 800);
@@ -2111,9 +2125,7 @@ Data: ${dataAtual}
         }
 
         function mostrarModalEmail(amostra) {
-            const tipoEnvioLabel = amostra.tipoEnvio === 'pedido_recente' ?
-                'Possui pedido recente (envio junto ao pedido)' :
-                'Via Correio (envio separado)';
+            const tipoEnvioLabel = getTipoEnvioLabel(amostra.tipoEnvio);
             const prazoFormatado = new Date(amostra.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
             const dataAtual = new Date().toLocaleDateString('pt-BR');
 
@@ -2141,6 +2153,7 @@ ${formatarParaEmail(amostra.quantidade)}
 
 ⏰ PRAZO MÁXIMO PARA ENVIO: ${prazoFormatado}
 🚚 TIPO DE ENVIO: ${tipoEnvioLabel}
+📋 NOTA FISCAL: ${amostra.notaFiscal || 'Não informada'}
 
 📝 OBSERVAÇÕES: ${amostra.observacoes || 'Nenhuma'}
 
@@ -2155,11 +2168,9 @@ Data: ${dataAtual}
             btnCopy.innerHTML = '<i class="fas fa-copy"></i> Copiar texto do email';
             copyFeedback.style.display = 'none';
 
-            // Atualiza o mailtoUrlAtual para este email
             mailtoUrlAtual = construirMailtoUrl(amostra);
             amostraEmailTemp = amostra;
 
-            // Atualiza o alerta de plataforma
             atualizarAlertaEmail();
 
             modalEmail.style.display = 'flex';
@@ -2170,7 +2181,7 @@ Data: ${dataAtual}
             if (!a) return;
             const prazoFormatado = new Date(a.prazo + 'T00:00:00').toLocaleDateString('pt-BR');
             const dataCriacao = new Date(a.dataCriacao).toLocaleString('pt-BR');
-            const tipoEnvioLabel = a.tipoEnvio === 'pedido_recente' ? '📦 Possui pedido recente' : '🚚 Via Correio';
+            const tipoEnvioLabel = getTipoEnvioLabelDetalhes(a.tipoEnvio);
             document.getElementById('detalhesContent').innerHTML = `
                 <div class="detail-grid">
                     <div class="detail-item"><span class="dl">ID</span><span class="dv">${a.id}</span></div>
@@ -2182,6 +2193,7 @@ Data: ${dataAtual}
                     <div class="detail-item detail-full"><span class="dl">Quantidades</span><span class="dv">${formatarParaExibicao(a.quantidade)}</span></div>
                     <div class="detail-item"><span class="dl">Prazo</span><span class="dv">${prazoFormatado}</span></div>
                     <div class="detail-item"><span class="dl">Envio</span><span class="dv">${tipoEnvioLabel}</span></div>
+                    <div class="detail-item"><span class="dl">Nota Fiscal</span><span class="dv">${a.notaFiscal || 'Não informada'}</span></div>
                     <div class="detail-item"><span class="dl">Status</span><span class="dv"><span class="badge badge-${a.status}">${getStatusLabel(a.status)}</span></span></div>
                     <div class="detail-item detail-full"><span class="dl">Obs</span><span class="dv">${a.observacoes || 'Nenhuma'}</span></div>
                     <div class="detail-item detail-full">
@@ -2272,29 +2284,29 @@ Data: ${dataAtual}
                 { id: 'AM-DEMO001', dataCriacao: new Date(hoje.getTime() - 5 * 86400000).toISOString(),
                     material: 'Sacola plástica personalizada 30x40cm', quantidade: '10 unidades', nomePessoa: 'Maria Silva',
                     endereco: 'Rua das Flores, 123 - Centro - SP', empresa: 'Loja Flor de Lis', prazo: dias(1),
-                    tipoEnvio: 'pedido_recente', emailContato: 'maria@flordelis.com.br', telefone: '(11) 99999-0001',
+                    tipoEnvio: 'pedido_recente', notaFiscal: 'NF-00012345', emailContato: 'maria@flordelis.com.br', telefone: '(11) 99999-0001',
                     observacoes: 'Cliente VIP', status: 'urgente' },
                 { id: 'AM-DEMO002', dataCriacao: new Date(hoje.getTime() - 3 * 86400000).toISOString(),
                     material: 'Caixa de papelão kraft 20x20x15cm' + SEPARADOR + 'Fita adesiva personalizada',
                     quantidade: '3 unidades' + SEPARADOR + '1 rolo', nomePessoa: 'João Santos',
                     endereco: 'Av. Paulista, 1000 - SP', empresa: 'Empório Natural', prazo: dias(5),
-                    tipoEnvio: 'correio', emailContato: 'joao@emporionatural.com.br', telefone: '(11) 98888-0002',
+                    tipoEnvio: 'correio', notaFiscal: '', emailContato: 'joao@emporionatural.com.br', telefone: '(11) 98888-0002',
                     observacoes: 'Dois materiais', status: 'pendente' },
                 { id: 'AM-DEMO003', dataCriacao: new Date(hoje.getTime() - 10 * 86400000).toISOString(),
                     material: 'Fita adesiva personalizada 48mm', quantidade: '1 rolo', nomePessoa: 'Ana Costa',
                     endereco: 'Rua XV de Novembro, 500 - PR', empresa: 'Ateliê Ana Costa', prazo: dias(-2),
-                    tipoEnvio: 'correio', emailContato: 'ana@atelie.com', telefone: '(41) 97777-0003',
-                    observacoes: 'Enviado', status: 'enviado' },
+                    tipoEnvio: 'transportadora', notaFiscal: 'NF-00067890', emailContato: 'ana@atelie.com', telefone: '(41) 97777-0003',
+                    observacoes: 'Enviado por transportadora', status: 'enviado' },
                 { id: 'AM-DEMO004', dataCriacao: new Date(hoje.getTime() - 15 * 86400000).toISOString(),
                     material: 'Embalagem premium' + SEPARADOR + 'Saco craft', quantidade: '5 conj' + SEPARADOR +
                     '8 un', nomePessoa: 'Carlos Eduardo', endereco: 'Alameda Santos, 200 - SP',
                     empresa: 'Presentes Finos', prazo: dias(-8), tipoEnvio: 'pedido_recente',
-                    emailContato: 'carlos@presentes.com', telefone: '(11) 96666-0004', observacoes: 'Entregue',
+                    notaFiscal: 'NF-00054321', emailContato: 'carlos@presentes.com', telefone: '(11) 96666-0004', observacoes: 'Entregue',
                     status: 'concluido' },
                 { id: 'AM-DEMO005', dataCriacao: new Date(hoje.getTime() - 1 * 86400000).toISOString(),
                     material: 'Saco de papel craft com alça', quantidade: '8 unidades', nomePessoa: 'Fernanda Lima',
                     endereco: 'Rua das Palmeiras, 45 - RJ', empresa: 'Boutique Lima', prazo: dias(0),
-                    tipoEnvio: 'correio', emailContato: 'fernanda@boutique.com', telefone: '(21) 95555-0005',
+                    tipoEnvio: 'correio', notaFiscal: '', emailContato: 'fernanda@boutique.com', telefone: '(21) 95555-0005',
                     observacoes: 'URGENTE', status: 'urgente' }
             ];
 
