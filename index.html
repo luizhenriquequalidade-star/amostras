@@ -219,7 +219,7 @@
                                 </div>
                                 <button type="button" class="btn-adicionar-amostra" id="btnAdicionarAmostra" style="margin-top:8px;"><i class="fas fa-plus"></i> Adicionar outra amostra</button>
                             </div>
-                            <div class="form-group"><label><span class="req">*</span> Até qual dia pode ser o envio?</label><input type="date" id="campoPrazo" required></div>
+                            <div class="form-group"><label><span class="req">*</span> Previsão de envio</label><input type="date" id="campoPrazo" required></div>
                             <div class="form-group"><label><span class="req">*</span> Nome de quem vai receber</label><input type="text" id="campoNome" placeholder="Nome completo" required></div>
                             <div class="form-group"><label><span class="req">*</span> Empresa que vai receber</label><input type="text" id="campoEmpresa" placeholder="Nome da empresa" required></div>
                             <div class="form-group full-width"><label><span class="req">*</span> Endereço completo</label><input type="text" id="campoEndereco" placeholder="Rua, número, bairro, cidade, estado, CEP" required></div>
@@ -229,9 +229,10 @@
                                     <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioPedido" value="pedido_recente" required><label for="envioPedido"><i class="fas fa-box"></i> Possui pedido recente</label></div>
                                     <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioCorreio" value="correio"><label for="envioCorreio"><i class="fas fa-truck"></i> Via Correio</label></div>
                                     <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioTransportadora" value="transportadora"><label for="envioTransportadora"><i class="fas fa-shipping-fast"></i> Transportadora</label></div>
+                                    <div class="radio-option"><input type="radio" name="tipoEnvio" id="envioMotoristaDRT" value="motorista_drt"><label for="envioMotoristaDRT"><i class="fas fa-user-tie"></i> Via Motorista DRT</label></div>
                                 </div>
                             </div>
-                            <div class="form-group full-width"><label>Número da Nota Fiscal (se houver)</label><input type="text" id="campoNotaFiscal" placeholder="Nº da nota fiscal do pedido"></div>
+                            <div class="form-group full-width"><label>Número do pedido/proposta</label><input type="text" id="campoNotaFiscal" placeholder="Nº do pedido/proposta"></div>
                             <div class="form-group"><label>Email para contato</label><input type="email" id="campoEmail" placeholder="email@exemplo.com"></div>
                             <div class="form-group"><label>Telefone</label><input type="tel" id="campoTelefone" placeholder="(00) 00000-0000"></div>
                             <div class="form-group full-width"><label>Observações adicionais</label><textarea id="campoObs" placeholder="Alguma informação extra relevante..."></textarea></div>
@@ -381,8 +382,8 @@
         let contadorItens = 1;
         let mailtoUrlAtual = '';
 
-        function getTipoEnvioLabel(t) { return { pedido_recente:'📦 Possui pedido recente (envio junto ao pedido)', correio:'🚚 Via Correio (envio separado)', transportadora:'🚛 Transportadora (envio por transportadora)' }[t] || t || 'Não informado'; }
-        function getTipoEnvioLabelDetalhes(t) { return { pedido_recente:'📦 Possui pedido recente', correio:'🚚 Via Correio', transportadora:'🚛 Transportadora' }[t] || t || 'Não informado'; }
+        function getTipoEnvioLabel(t) { return { pedido_recente:'📦 Possui pedido recente (envio junto ao pedido)', correio:'🚚 Via Correio (envio separado)', transportadora:'🚛 Transportadora (envio por transportadora)', motorista_drt:'🧑‍💼 Via Motorista DRT (entrega direta)' }[t] || t || 'Não informado'; }
+        function getTipoEnvioLabelDetalhes(t) { return { pedido_recente:'📦 Possui pedido recente', correio:'🚚 Via Correio', transportadora:'🚛 Transportadora', motorista_drt:'🧑‍💼 Via Motorista DRT' }[t] || t || 'Não informado'; }
         function getStatusLabel(s) { return { pendente:'Pendente', urgente:'⚠ Urgente', enviado:'Enviado', concluido:'Concluído' }[s] || s; }
         function escapeHtml(str) { const d = document.createElement('div'); d.textContent = str||''; return d.innerHTML; }
 
@@ -414,7 +415,7 @@
         function construirCorpoEmail(a) {
             const prazoF = new Date(a.prazo+'T00:00:00').toLocaleDateString('pt-BR');
             const dataAtual = new Date().toLocaleDateString('pt-BR');
-            return `De: ${a.emailContato||'sistema@donaritaembalagens.com.br'}\nPara: ${EMAIL_DESTINO}\nAssunto: SOLICITAÇÃO DE AMOSTRA - ${a.empresa.toUpperCase()} - ${a.nomePessoa}\n\n═══════════════════════════════════\n📦 SOLICITAÇÃO DE AMOSTRA\n═══════════════════════════════════\n\n🏢 EMPRESA: ${a.empresa}\n👤 CONTATO: ${a.nomePessoa}\n📍 ENDEREÇO: ${a.endereco}\n📧 EMAIL: ${a.emailContato||'Não informado'}\n📞 TELEFONE: ${a.telefone||'Não informado'}\n\n───────────────────────────────────\n🎁 MATERIAIS SOLICITADOS:\n${formatarParaEmail(a.material)}\n\n📊 QUANTIDADES:\n${formatarParaEmail(a.quantidade)}\n───────────────────────────────────\n\n⏰ PRAZO MÁXIMO PARA ENVIO: ${prazoF}\n🚚 TIPO DE ENVIO: ${getTipoEnvioLabel(a.tipoEnvio)}\n📋 NOTA FISCAL: ${a.notaFiscal||'Não informada'}\n\n📝 OBSERVAÇÕES: ${a.observacoes||'Nenhuma'}\n\n═══════════════════════════════════\nID: ${a.id}\nGerado pelo Sistema Dona Rita Amostras\nData: ${dataAtual}\n═══════════════════════════════════`;
+            return `De: ${a.emailContato||'sistema@donaritaembalagens.com.br'}\nPara: ${EMAIL_DESTINO}\nAssunto: SOLICITAÇÃO DE AMOSTRA - ${a.empresa.toUpperCase()} - ${a.nomePessoa}\n\n═══════════════════════════════════\n📦 SOLICITAÇÃO DE AMOSTRA\n═══════════════════════════════════\n\n🏢 EMPRESA: ${a.empresa}\n👤 CONTATO: ${a.nomePessoa}\n📍 ENDEREÇO: ${a.endereco}\n📧 EMAIL: ${a.emailContato||'Não informado'}\n📞 TELEFONE: ${a.telefone||'Não informado'}\n\n───────────────────────────────────\n🎁 MATERIAIS SOLICITADOS:\n${formatarParaEmail(a.material)}\n\n📊 QUANTIDADES:\n${formatarParaEmail(a.quantidade)}\n───────────────────────────────────\n\n⏰ PREVISÃO DE ENVIO: ${prazoF}\n🚚 TIPO DE ENVIO: ${getTipoEnvioLabel(a.tipoEnvio)}\n📋 NÚMERO DO PEDIDO/PROPOSTA: ${a.notaFiscal||'Não informado'}\n\n📝 OBSERVAÇÕES: ${a.observacoes||'Nenhuma'}\n\n═══════════════════════════════════\nID: ${a.id}\nGerado pelo Sistema Dona Rita Amostras\nData: ${dataAtual}\n═══════════════════════════════════`;
         }
         function construirMailtoUrl(a) {
             const assunto = `SOLICITAÇÃO DE AMOSTRA - ${a.empresa} - ${a.nomePessoa}`;
@@ -575,9 +576,9 @@
                     <div class="detail-item detail-full"><span class="dl">Endereço</span><span class="dv">${escapeHtml(a.endereco)}</span></div>
                     <div class="detail-item detail-full"><span class="dl">Materiais</span><span class="dv">${formatarParaExibicao(a.material)}</span></div>
                     <div class="detail-item detail-full"><span class="dl">Quantidades</span><span class="dv">${formatarParaExibicao(a.quantidade)}</span></div>
-                    <div class="detail-item"><span class="dl">Prazo</span><span class="dv">${pf}</span></div>
+                    <div class="detail-item"><span class="dl">Previsão de envio</span><span class="dv">${pf}</span></div>
                     <div class="detail-item"><span class="dl">Envio</span><span class="dv">${getTipoEnvioLabelDetalhes(a.tipoEnvio)}</span></div>
-                    <div class="detail-item"><span class="dl">Nota Fiscal</span><span class="dv">${a.notaFiscal||'Não informada'}</span></div>
+                    <div class="detail-item"><span class="dl">Nº Pedido/Proposta</span><span class="dv">${a.notaFiscal||'Não informado'}</span></div>
                     <div class="detail-item"><span class="dl">Status</span><span class="dv"><span class="badge badge-${a.status}">${getStatusLabel(a.status)}</span></span></div>
                     <div class="detail-item detail-full"><span class="dl">Obs</span><span class="dv">${a.observacoes||'Nenhuma'}</span></div>
                     <div class="detail-item detail-full">
